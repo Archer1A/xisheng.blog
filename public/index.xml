@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title></title>
+    <link>/</link>
+    <description>Recent content on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Fri, 04 Oct 2019 16:10:09 +0800</lastBuildDate>
+    
+	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>科学上网</title>
+      <link>/kexueshangwang/</link>
+      <pubDate>Fri, 04 Oct 2019 16:10:09 +0800</pubDate>
+      
+      <guid>/kexueshangwang/</guid>
+      <description>proxy 由于墙的存在,无法拉取镜像,建议科学上网 下面介绍怎么搭建代理
+server 在境外代理机器上通过pip安装shadowsocks,并且启动服务端程序
+[如果您还没有代理机,可以选择在阿里云上购买一台香港服务器,虽然有点贵，但是稳定不，不会被墙]https://promotion.aliyun.com/ntms/yunparter/invite.html?userCode=j7wyhezj)
+yum -y install epel-release python-pip automake pip install shadowsocks  cat &amp;lt;&amp;lt;EOF&amp;gt; /etc/shadowsocks.conf { &amp;quot;server&amp;quot;:&amp;quot;0.0.0.0&amp;quot;, &amp;quot;server_port&amp;quot;: 12345 , &amp;quot;local_port&amp;quot;:1080, &amp;quot;password&amp;quot;:&amp;quot;yourpassword&amp;quot;, &amp;quot;timeout&amp;quot;:600, &amp;quot;method&amp;quot;:&amp;quot;aes-256-cfb&amp;quot;, &amp;quot;workers&amp;quot;:1 } EOF   ssserver -c /etc/shadowsocks.conf -d start //后台启动  client 在境内服务器安装一个代理转换程序privoxy,将shaodows加密的流支持http协议
+yum -y install epel-release python-pip shadowsocks  编写配置文件,将server_ip修改为你境外的服务器ip地址 12345是境外服务器shadowSocket暴露的端口 local_port是你本地shadowSocket监听的端口 cat &amp;lt;&amp;lt;EOF&amp;gt; /etc/shadowsocks.conf { &amp;quot;server&amp;quot;:&amp;quot;server_ip&amp;quot;, &amp;quot;server_port&amp;quot;:12345 , &amp;quot;local_port&amp;quot;:1080, &amp;quot;password&amp;quot;:&amp;quot;yourpassword&amp;quot;, &amp;quot;timeout&amp;quot;:600, &amp;quot;method&amp;quot;:&amp;quot;aes-256-cfb&amp;quot;, &amp;quot;workers&amp;quot;:1 } EOF  启动shadow sockets 客户端服务  sslocal -c /etc/shadowsocks.</description>
+    </item>
+    
+    <item>
+      <title>Hello</title>
+      <link>/hello/</link>
+      <pubDate>Fri, 04 Oct 2019 16:08:36 +0800</pubDate>
+      
+      <guid>/hello/</guid>
+      <description>hello
+This is my first blog</description>
+    </item>
+    
+  </channel>
+</rss>

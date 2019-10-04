@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <title>科学上网 // </title>
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.57.0-DEV" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="John Doe" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="/css/main.min.f90f5edd436ec7b74ad05479a05705770306911f721193e7845948fb07fe1335.css" />
+
+    
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="科学上网"/>
+<meta name="twitter:description" content="proxy 由于墙的存在,无法拉取镜像,建议科学上网 下面介绍怎么搭建代理
+server 在境外代理机器上通过pip安装shadowsocks,并且启动服务端程序
+[如果您还没有代理机,可以选择在阿里云上购买一台香港服务器,虽然有点贵，但是稳定不，不会被墙]https://promotion.aliyun.com/ntms/yunparter/invite.html?userCode=j7wyhezj)
+yum -y install epel-release python-pip automake pip install shadowsocks  cat &lt;&lt;EOF&gt; /etc/shadowsocks.conf { &quot;server&quot;:&quot;0.0.0.0&quot;, &quot;server_port&quot;: 12345 , &quot;local_port&quot;:1080, &quot;password&quot;:&quot;yourpassword&quot;, &quot;timeout&quot;:600, &quot;method&quot;:&quot;aes-256-cfb&quot;, &quot;workers&quot;:1 } EOF   ssserver -c /etc/shadowsocks.conf -d start //后台启动  client 在境内服务器安装一个代理转换程序privoxy,将shaodows加密的流支持http协议
+yum -y install epel-release python-pip shadowsocks  编写配置文件,将server_ip修改为你境外的服务器ip地址 12345是境外服务器shadowSocket暴露的端口 local_port是你本地shadowSocket监听的端口 cat &lt;&lt;EOF&gt; /etc/shadowsocks.conf { &quot;server&quot;:&quot;server_ip&quot;, &quot;server_port&quot;:12345 , &quot;local_port&quot;:1080, &quot;password&quot;:&quot;yourpassword&quot;, &quot;timeout&quot;:600, &quot;method&quot;:&quot;aes-256-cfb&quot;, &quot;workers&quot;:1 } EOF  启动shadow sockets 客户端服务  sslocal -c /etc/shadowsocks."/>
+
+    <meta property="og:title" content="科学上网" />
+<meta property="og:description" content="proxy 由于墙的存在,无法拉取镜像,建议科学上网 下面介绍怎么搭建代理
+server 在境外代理机器上通过pip安装shadowsocks,并且启动服务端程序
+[如果您还没有代理机,可以选择在阿里云上购买一台香港服务器,虽然有点贵，但是稳定不，不会被墙]https://promotion.aliyun.com/ntms/yunparter/invite.html?userCode=j7wyhezj)
+yum -y install epel-release python-pip automake pip install shadowsocks  cat &lt;&lt;EOF&gt; /etc/shadowsocks.conf { &quot;server&quot;:&quot;0.0.0.0&quot;, &quot;server_port&quot;: 12345 , &quot;local_port&quot;:1080, &quot;password&quot;:&quot;yourpassword&quot;, &quot;timeout&quot;:600, &quot;method&quot;:&quot;aes-256-cfb&quot;, &quot;workers&quot;:1 } EOF   ssserver -c /etc/shadowsocks.conf -d start //后台启动  client 在境内服务器安装一个代理转换程序privoxy,将shaodows加密的流支持http协议
+yum -y install epel-release python-pip shadowsocks  编写配置文件,将server_ip修改为你境外的服务器ip地址 12345是境外服务器shadowSocket暴露的端口 local_port是你本地shadowSocket监听的端口 cat &lt;&lt;EOF&gt; /etc/shadowsocks.conf { &quot;server&quot;:&quot;server_ip&quot;, &quot;server_port&quot;:12345 , &quot;local_port&quot;:1080, &quot;password&quot;:&quot;yourpassword&quot;, &quot;timeout&quot;:600, &quot;method&quot;:&quot;aes-256-cfb&quot;, &quot;workers&quot;:1 } EOF  启动shadow sockets 客户端服务  sslocal -c /etc/shadowsocks." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/kexueshangwang/" />
+<meta property="article:published_time" content="2019-10-04T16:10:09+08:00" />
+<meta property="article:modified_time" content="2019-10-04T16:10:09+08:00" />
+
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href=""><img class="app-header-avatar" src="/avatar.jpg" alt="John Doe" /></a>
+      <h1></h1>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vehicula turpis sit amet elit pretium.</p>
+      <div class="app-header-social">
+        
+      </div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">科学上网</h1>
+      <div class="post-meta">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Oct 4, 2019
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          1 min read
+        </div></div>
+    </header>
+    <div class="post-content">
+      
+
+<h1 id="proxy">proxy</h1>
+
+<p>由于墙的存在,无法拉取镜像,建议科学上网
+下面介绍怎么搭建代理</p>
+
+<h3 id="server">server</h3>
+
+<p>在境外代理机器上通过pip安装shadowsocks,并且启动服务端程序<br>
+[如果您还没有代理机,可以选择在阿里云上购买一台香港服务器,虽然有点贵，但是稳定不，不会被墙]<a href="https://promotion.aliyun.com/ntms/yunparter/invite.html?userCode=j7wyhezj)">https://promotion.aliyun.com/ntms/yunparter/invite.html?userCode=j7wyhezj)</a></p>
+
+<pre><code>yum -y install epel-release python-pip automake
+pip install shadowsocks
+</code></pre>
+
+<pre><code>cat &lt;&lt;EOF&gt; /etc/shadowsocks.conf
+{
+        &quot;server&quot;:&quot;0.0.0.0&quot;,
+        &quot;server_port&quot;: 12345 ,
+        &quot;local_port&quot;:1080,
+        &quot;password&quot;:&quot;yourpassword&quot;,
+        &quot;timeout&quot;:600,
+        &quot;method&quot;:&quot;aes-256-cfb&quot;,
+        &quot;workers&quot;:1
+}
+EOF
+</code></pre>
+
+<pre><code>   ssserver -c /etc/shadowsocks.conf -d start //后台启动
+</code></pre>
+
+<h3 id="client">client</h3>
+
+<p>在境内服务器安装一个代理转换程序privoxy,将shaodows加密的流支持http协议</p>
+
+<pre><code>yum -y install epel-release python-pip shadowsocks
+</code></pre>
+
+<p>编写配置文件,将server_ip修改为你境外的服务器ip地址 <br>
+12345是境外服务器shadowSocket暴露的端口 <br>
+local_port是你本地shadowSocket监听的端口 <br></p>
+
+<pre><code>cat &lt;&lt;EOF&gt; /etc/shadowsocks.conf
+{
+        &quot;server&quot;:&quot;server_ip&quot;,
+        &quot;server_port&quot;:12345 ,
+        &quot;local_port&quot;:1080,
+        &quot;password&quot;:&quot;yourpassword&quot;,
+        &quot;timeout&quot;:600,
+        &quot;method&quot;:&quot;aes-256-cfb&quot;,
+        &quot;workers&quot;:1
+}
+EOF
+</code></pre>
+
+<pre><code>启动shadow sockets 客户端服务
+</code></pre>
+
+<pre><code>sslocal  -c /etc/shadowsocks.conf -d start //后台启动
+</code></pre>
+
+<p>Autoconf 及 Automake 这两套工具来协助我们自动产生 Makefile文件</p>
+
+<pre><code>yum -y install gcc wget autoconf
+</code></pre>
+
+<p>下载privoxy,用于将shadowSocket加密的数据转换为http协议<br>
+如果无法下载,clone本项目,我已下载好</p>
+
+<pre><code>wget http://www.privoxy.org/sf-download-mirror/Sources/3.0.26%20%28stable%29/privoxy-3.0.26-stable-src.tar.gz
+tar -zxvf privoxy-3.0.26-stable-src.tar.gz
+cd privoxy-3.0.26-stable
+</code></pre>
+
+<p>编译安装</p>
+
+<pre><code>useradd privoxy
+autoheader &amp;&amp; autoconf
+./configure
+make &amp;&amp; make install
+</code></pre>
+
+<p>在文件/usr/local/etc/privoxy/config中找到下面两行,去掉注释</p>
+
+<pre><code>forward-socks5t   /               127.0.0.1:1080
+listen-address  127.0.0.1:8118
+</code></pre>
+
+<p>启动协议转换代理：
+<code>privoxy --user privoxy /usr/local/etc/privoxy/config  # 以用户privoxy 的身份运行指定配置文件</code></p>
+
+<h3 id="配置环境变量">配置环境变量</h3>
+
+<p>export http_proxy=<a href="http://127.0.0.1:8118">http://127.0.0.1:8118</a> <br>
+export https_proxy=<a href="http://127.0.0.1:8118">http://127.0.0.1:8118</a> <br>
+export ftp_proxy=<a href="http://127.0.0.1:8118">http://127.0.0.1:8118</a> <br></p>
+
+<h3 id="windows-client">windows client</h3>
+
+<p><a href="https://github.com/shadowsocks/shadowsocks-windows/releases">windows 小飞机代理工具</a></p>
+
+<h3 id="总结">总结</h3>
+
+<pre><code>服务端（socket5 协议）  - - - - -  客户端 （socket5协议）
+			             |
+			             |
+			privoxy（socket5 和 http协议互转）
+			             |
+			             |
+                        具体应用curl, yum,wget等
+</code></pre>
+
+    </div>
+    <div class="post-footer">
+      
+    </div>
+  </article>
+
+    </main>
+  </body>
+</html>

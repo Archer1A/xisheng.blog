@@ -3,12 +3,6 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>/</loc>
-    <lastmod>2019-10-04T16:10:09+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>/kexueshangwang/</loc>
     <lastmod>2019-10-04T16:10:09+08:00</lastmod>
   </url>
@@ -16,6 +10,12 @@
   <url>
     <loc>/hello/</loc>
     <lastmod>2019-10-04T16:08:36+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/</loc>
+    <lastmod>2019-10-04T16:10:09+08:00</lastmod>
+    <priority>0</priority>
   </url>
   
   <url>

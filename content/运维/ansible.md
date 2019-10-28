@@ -1,6 +1,6 @@
 ---
 title: "ansible useage"
-date: 2019-10-04T16:08:36+08:00
+date: 2019-10-25 T16:08:36+08:00
 draft: false
 ---
 
@@ -26,3 +26,27 @@ callback_whitelist = self_logout
 ansible
 
 ansible-playbook
+
+## modules
+### template 和 wget 下载文件的速度对比
+    wget 要比 template 快
+        
+      2s
+      shell: wget https://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo -O /etc/yum.repos.d/docker-ce.repo
+        
+      8s
+      template:
+        src: templates/docker-ce.repo
+        dest: /etc/yum.repos.d/docker-ce.repo
+
+
+### yum
+是否可以 多个一起
+
+### 优化大量的shell一起执行的速度
+
+### 回掉脚本
+
+### python ansible api
+
+### ansible 数组写在一行不好看

@@ -2,10 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f82470bf-7e3e-42e7-8d19-b636f4c4ccf7" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/content/python/python_logging.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/content/python/shell_cmd.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/content/kubernetes/aliyun_kubernetes_volume.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/content/kubernetes/dashboard.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/content/kubernetes/network.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/content/运维/docker volume clean.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/content/运维/ovftool.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/content/运维/windows install.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/content/docker/install.md" beforeDir="false" afterPath="$PROJECT_DIR$/content/docker/install.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/content/kubernetes/helm.md" beforeDir="false" afterPath="$PROJECT_DIR$/content/kubernetes/helm.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/content/运维/ansible.md" beforeDir="false" afterPath="$PROJECT_DIR$/content/运维/ansible.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/shell/install_docker.sh" beforeDir="false" afterPath="$PROJECT_DIR$/static/shell/install_docker.sh" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/themes/m10c" beforeDir="false" afterPath="$PROJECT_DIR$/themes/m10c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/themes/m10c/.gitignore" beforeDir="false" />
     </list>
@@ -18,42 +25,6 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/content/运维/ansible.md">
-          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-            <state split_layout="SPLIT">
-              <first_editor>
-                <caret selection-end-line="4" selection-end-column="3" />
-              </first_editor>
-              <second_editor />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/content/运维/shell_judge.md">
-          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-            <state split_layout="SPLIT">
-              <first_editor relative-caret-position="210">
-                <caret line="10" column="17" selection-start-line="10" selection-start-column="17" selection-end-line="10" selection-end-column="17" />
-              </first_editor>
-              <second_editor />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/content/kexueshangwang.md">
-          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-            <state split_layout="SPLIT">
-              <first_editor relative-caret-position="2352">
-                <caret line="112" selection-start-line="112" selection-end-line="112" />
-              </first_editor>
-              <second_editor />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/content/kubernetes/kubeadm-conf">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="105">
@@ -63,20 +34,54 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/static/shell/install_docker.sh">
+        <entry file="file://$PROJECT_DIR$/content/kubernetes/kubeadm-config-net">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1827">
-              <caret line="87" selection-start-line="87" selection-end-line="87" />
+            <state relative-caret-position="357">
+              <caret line="17" column="35" selection-start-line="17" selection-start-column="35" selection-end-line="17" selection-end-column="35" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/content/python/shell_cmd.md">
+        <entry file="file://$PROJECT_DIR$/content/docker/install.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="189">
-                <caret line="9" selection-start-line="9" selection-end-line="9" />
+              <first_editor />
+              <second_editor />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/content/kubernetes/network.md">
+          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+            <state split_layout="SPLIT">
+              <first_editor relative-caret-position="21">
+                <caret line="1" selection-start-line="1" selection-end-line="3" selection-end-column="12" />
+              </first_editor>
+              <second_editor />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/content/kubernetes/aliyun_kubernetes_volume.md">
+          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+            <state split_layout="SPLIT">
+              <first_editor relative-caret-position="147">
+                <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
+              </first_editor>
+              <second_editor />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/content/kubernetes/cloud_privoder.md">
+          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+            <state split_layout="FIRST">
+              <first_editor relative-caret-position="483">
+                <caret line="23" column="13" selection-start-line="23" selection-start-column="13" selection-end-line="23" selection-end-column="13" />
               </first_editor>
               <second_editor />
             </state>
@@ -84,11 +89,11 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/content/python/python_logging.md">
+        <entry file="file://$PROJECT_DIR$/content/kubernetes/helm.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-            <state split_layout="SPLIT">
-              <first_editor relative-caret-position="167">
-                <caret line="14" column="19" lean-forward="true" selection-start-line="14" selection-start-column="19" selection-end-line="14" selection-end-column="19" />
+            <state split_layout="FIRST">
+              <first_editor relative-caret-position="84">
+                <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
               </first_editor>
               <second_editor />
             </state>
@@ -96,8 +101,23 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/static/avatar.jpg">
-          <provider selected="true" editor-type-id="images" />
+        <entry file="file://$PROJECT_DIR$/content/kubernetes/dashboard.md">
+          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+            <state split_layout="SPLIT">
+              <first_editor />
+              <second_editor />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/README.md">
+          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+            <state split_layout="SPLIT">
+              <first_editor />
+              <second_editor />
+            </state>
+          </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
@@ -105,12 +125,13 @@
           <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$USER_HOME$/Downloads/docker-ce.repo">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
     </leaf>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>index</find>
+      <find>add</find>
+    </findStrings>
   </component>
   <component name="GOROOT" path="C:\Go" />
   <component name="Git.Settings">
@@ -123,23 +144,30 @@
         <option value="$PROJECT_DIR$/content/hello.md" />
         <option value="$PROJECT_DIR$/content/shell_judge.md" />
         <option value="$PROJECT_DIR$/content/运维/ubuntu.md" />
-        <option value="$PROJECT_DIR$/content/docker/install.md" />
         <option value="$PROJECT_DIR$/static/install_docker.sh" />
         <option value="$PROJECT_DIR$/content/kubernetes/kubeadm-conf" />
         <option value="$PROJECT_DIR$/content/kubernetes/kubeadm-config-net" />
         <option value="$PROJECT_DIR$/content/运维/yum.md" />
-        <option value="$PROJECT_DIR$/content/kubernetes/helm.md" />
         <option value="$PROJECT_DIR$/content/kubernetes/cloud_privider.md" />
         <option value="$PROJECT_DIR$/content/python/shell_cmd.md" />
-        <option value="$PROJECT_DIR$/content/运维/ansible.md" />
         <option value="$PROJECT_DIR$/content/python/python_logging.md" />
+        <option value="$PROJECT_DIR$/content/kubernetes/aliyun_kubernetes_volume.md" />
+        <option value="$PROJECT_DIR$/content/运维/docker volume clean.md" />
+        <option value="$PROJECT_DIR$/content/运维/windows install.md" />
+        <option value="$PROJECT_DIR$/content/运维/ovftool.md" />
+        <option value="$PROJECT_DIR$/static/shell/install_docker.sh" />
+        <option value="$PROJECT_DIR$/content/运维/ansible.md" />
+        <option value="$PROJECT_DIR$/content/docker/install.md" />
+        <option value="$PROJECT_DIR$/content/kubernetes/flannel.md" />
+        <option value="$PROJECT_DIR$/content/kubernetes/network.md" />
+        <option value="$PROJECT_DIR$/content/kubernetes/helm.md" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
-    <option name="x" value="397" />
-    <option name="width" value="959" />
-    <option name="height" value="735" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="2" />
+    <option name="width" value="1363" />
+    <option name="height" value="708" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -147,6 +175,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -163,13 +192,7 @@
               <item name="xisheng.blog" type="b2602c69:ProjectViewProjectNode" />
               <item name="xisheng.blog" type="462c0819:PsiDirectoryNode" />
               <item name="content" type="462c0819:PsiDirectoryNode" />
-              <item name="python" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="xisheng.blog" type="b2602c69:ProjectViewProjectNode" />
-              <item name="xisheng.blog" type="462c0819:PsiDirectoryNode" />
-              <item name="content" type="462c0819:PsiDirectoryNode" />
-              <item name="运维" type="462c0819:PsiDirectoryNode" />
+              <item name="kubernetes" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="xisheng.blog" type="b2602c69:ProjectViewProjectNode" />
@@ -179,23 +202,18 @@
             <path>
               <item name="xisheng.blog" type="b2602c69:ProjectViewProjectNode" />
               <item name="xisheng.blog" type="462c0819:PsiDirectoryNode" />
-              <item name="layouts" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="xisheng.blog" type="b2602c69:ProjectViewProjectNode" />
-              <item name="xisheng.blog" type="462c0819:PsiDirectoryNode" />
-              <item name="public" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="xisheng.blog" type="b2602c69:ProjectViewProjectNode" />
               <item name="xisheng.blog" type="462c0819:PsiDirectoryNode" />
               <item name="static" type="462c0819:PsiDirectoryNode" />
+              <item name="shell" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -208,6 +226,7 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="settings.editor.selected.configurable" value="terminal" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -232,10 +251,10 @@
     </option>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="7" />
+    <frame x="2" y="0" width="1363" height="708" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.20347957" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.22716807" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -249,7 +268,7 @@
       <window_info anchor="bottom" id="Database Changes" order="8" />
       <window_info anchor="bottom" id="Version Control" order="9" />
       <window_info anchor="bottom" id="Terminal" order="10" sideWeight="0.49924356" weight="0.43114755" />
-      <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.50075644" side_tool="true" weight="0.3295082" />
+      <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.50075644" side_tool="true" weight="0.33770493" />
       <window_info anchor="bottom" id="Messages" order="12" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -295,17 +314,32 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/content/docker/install.md">
+    <entry file="file://$PROJECT_DIR$/content/运维/ubuntu.md" />
+    <entry file="file://$PROJECT_DIR$/content/python/read.md" />
+    <entry file="file://$USER_HOME$/Downloads/docker-ce.repo" />
+    <entry file="file://$PROJECT_DIR$/static/avatar.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/content/python/shell_cmd.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="84">
-            <caret line="4" selection-start-line="4" selection-end-line="4" />
+          <first_editor relative-caret-position="189">
+            <caret line="9" selection-start-line="9" selection-end-line="9" />
           </first_editor>
           <second_editor />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/content/运维/ubuntu.md" />
+    <entry file="file://$PROJECT_DIR$/content/python/python_logging.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="294">
+            <caret line="14" column="19" selection-start-line="14" selection-start-column="19" selection-end-line="14" selection-end-column="19" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/content/hello.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
@@ -313,44 +347,6 @@
             <caret line="7" selection-end-line="10" />
           </first_editor>
           <second_editor />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/content/kubernetes/cloud_privoder.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="FIRST">
-          <first_editor relative-caret-position="21">
-            <caret line="1" column="22" selection-start-line="1" selection-start-column="22" selection-end-line="1" selection-end-column="22" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/content/kubernetes/helm.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="FIRST">
-          <first_editor relative-caret-position="-2101">
-            <caret line="14" column="20" lean-forward="true" selection-start-line="14" selection-start-column="20" selection-end-line="14" selection-end-column="20" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/content/python/read.md" />
-    <entry file="file://$PROJECT_DIR$/content/运维/yum.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="126">
-            <caret line="6" column="22" selection-start-line="6" selection-start-column="22" selection-end-line="6" selection-end-column="22" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/content/kubernetes/kubeadm-config-net">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="17" column="35" selection-start-line="17" selection-start-column="35" selection-end-line="17" selection-end-column="35" />
         </state>
       </provider>
     </entry>
@@ -364,44 +360,58 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/content/kubernetes/kubeadm-conf">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="5" column="26" selection-start-line="5" selection-end-line="5" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/shell/install_docker.sh">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1827">
-          <caret line="87" selection-start-line="87" selection-end-line="87" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Downloads/docker-ce.repo">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/avatar.jpg">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/config.toml">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/content/运维/shell_judge.md">
+    <entry file="file://$PROJECT_DIR$/content/运维/yum.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="210">
-            <caret line="10" column="17" selection-start-line="10" selection-start-column="17" selection-end-line="10" selection-end-column="17" />
+          <first_editor>
+            <caret selection-end-line="5" />
           </first_editor>
           <second_editor />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/content/python/shell_cmd.md">
+    <entry file="file://$PROJECT_DIR$/content/运维/windows install.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="189">
-            <caret line="9" selection-start-line="9" selection-end-line="9" />
+          <first_editor relative-caret-position="546">
+            <caret line="26" column="3" selection-start-line="26" selection-start-column="3" selection-end-line="26" selection-end-column="3" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/shell/install_docker.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="17" column="21" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/content/运维/ovftool.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="FIRST">
+          <first_editor relative-caret-position="378">
+            <caret line="18" selection-start-line="18" selection-end-line="18" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/content/运维/shell_judge.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="798">
+            <caret line="38" selection-start-line="38" selection-end-line="41" selection-end-column="3" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/content/运维/docker volume clean.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="1008">
+            <caret line="48" selection-start-line="48" selection-end-line="48" />
           </first_editor>
           <second_editor />
         </state>
@@ -409,19 +419,90 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/content/运维/ansible.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor>
-            <caret selection-end-line="4" selection-end-column="3" />
+        <state split_layout="FIRST">
+          <first_editor relative-caret-position="693">
+            <caret line="33" column="7" selection-start-line="33" selection-start-column="7" selection-end-line="33" selection-end-column="7" />
           </first_editor>
           <second_editor />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/content/python/python_logging.md">
+    <entry file="file://$PROJECT_DIR$/content/kubernetes/aliyun_kubernetes_volume.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="167">
-            <caret line="14" column="19" lean-forward="true" selection-start-line="14" selection-start-column="19" selection-end-line="14" selection-end-column="19" />
+          <first_editor relative-caret-position="147">
+            <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/content/kubernetes/kubeadm-config-net">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="17" column="35" selection-start-line="17" selection-start-column="35" selection-end-line="17" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/content/docker/install.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor />
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor />
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config.toml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/content/kubernetes/kubeadm-conf">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="5" column="26" selection-start-line="5" selection-end-line="5" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/content/kubernetes/cloud_privoder.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="FIRST">
+          <first_editor relative-caret-position="483">
+            <caret line="23" column="13" selection-start-line="23" selection-start-column="13" selection-end-line="23" selection-end-column="13" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/content/kubernetes/dashboard.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor />
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/content/kubernetes/network.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="21">
+            <caret line="1" selection-start-line="1" selection-end-line="3" selection-end-column="12" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/content/kubernetes/helm.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="FIRST">
+          <first_editor relative-caret-position="84">
+            <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
           </first_editor>
           <second_editor />
         </state>

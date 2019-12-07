@@ -1,3 +1,6 @@
+title: "helm 入门实践"
+date: 2019-12-7T16:08:36+08:00
+draft: false
 # helm 入门实践
 
 ## 下载二进制文件
@@ -78,6 +81,7 @@ helm install ./charts/stable/kubernetes-dashboard \
 
 
 ## 创建私有charts 仓库
+
 ```
 yum install supervisor -y
 
@@ -105,7 +109,7 @@ cd /data/loca-char-repo
 helm create myapp
 helm lint ./myapp
 helm package myapp/
-helm repo index --url=http://xxxxx:8881 .
+helm repo index myapp --url=http://xxxxx:8881 .
 
 ## 官方示例git clone https://github.com/XishengCai/charts.git
 ```
@@ -120,3 +124,68 @@ helm search redis
 helm install local-repo/myapp
 ```
 
+## template key
+    tpl
+    dir
+    template
+    indent    # 左边空格
+    
+    helm模板语法嵌套在{{和}}之间，有三个常见的 
+    .Values.* 
+    从value.yaml文件中读取 
+    .Release.* 
+    从运行Release的元数据读取 
+    .Template.* 
+    .Chart.* 
+    从Chart.yaml文件中读取 
+    .Files.* 
+    .Capabilities.*
+    
+### 获取helm渲染后的k8s可执行的yaml文件（只渲染不运行）。
+    helm install --debug --dry-run ./mychart
+    
+    .Values.*的值可以来自以下 
+    + values.yaml文件 
+    + 如果是子chart，值来自父chart的values.yaml 
+    + 通过helm install -f标志的文件 
+    + 来自–set中的配置
+    
+    顺序查找，下面找到的覆盖上面找到的值。
+    
+### 模板函数
+quote是最常用的模板函数，它能把ABC转化为“ABC”。它带一个参数 
+{{ quote .Values.favorite.drink }}
+
+| 管道，类似linux下的管道。 
+{{ quote .Values.favorite.drink }} 与 {{ .Values.favorite.drink | quote }} 效果一样。
+
+default 模板函数 
+制定默认值 
+drink: {{ .Values.favorite.drink | default “tea” | quote }} 
+如果在values中无法找到favorite.drink，则配置为“tea”。
+
+indent 模板函数 
+对左空出空格 
+例如
+
+data:
+  myvalue: "Hello World"
+{{ include "mychart_app" . | indent 2 }}
+会使渲染后的取值于左边空出两个空格，以符合yaml语法。
+
+### 应用安装
+
+### 应用检测
+
+### 应用归档
+
+### 应用依赖
+
+### 
+
+
+### link
+- [helm blog](https://changbo.tech/blog/29dc945b.html)
+- [helm github](https://github.com/helm/helm)
+- [helm blog2](https://blog.csdn.net/liukuan73/article/details/79319900)
+- [supervisor install](https://www.chengxulvtu.com/supervisor-on-centos-7/)

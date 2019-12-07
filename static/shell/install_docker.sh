@@ -2,9 +2,6 @@
 #docker17.03 安装：
 
 #添加代理
-export http_proxy=http://proxy.zj.chinamobile.com:8080
-export https_proxy=http://proxy.zj.chinamobile.com:8080
-
 
 #移除旧的docker
 yum remove docker docker-common container-selinux docker-selinux docker-engine

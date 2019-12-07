@@ -1,3 +1,10 @@
+---
+title: "install docker"
+date: 2019-10-18T16:08:36+08:00
+draft: false
+---
+
+```bash
 #!/usr/bin/env bash
 #docker17.03 安装：
 
@@ -82,3 +89,4 @@ export http_proxy=''
 export https_proxy=''
 curl localhost:6071/info
 
+```

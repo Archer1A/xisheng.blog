@@ -1,33 +1,39 @@
-name = "m10c"
-license = "MIT"
-licenselink = "https://github.com/vaga/hugo-theme-m10c/blob/master/LICENSE.md"
-homepage = "http://xisheng.vip"
-tags = ["blog", "minimalistic", "minimal", "responsive", "dark"]
-
-features = [
-  "minimalistic blog",
-  "social icons",
-  "editable colors"
-]
-
-min_version = 0.55
-
-theme = "m10c"
+languageCode = "zh_CN" #语言
+title = "xishengcai blog" #博客标题
+baseurl = "http://xisheng.vip"
+paginate = 5 #分页每页记录数
+DisqusShortname = "xisheng" #评论时显示的名字
+Copyright = "All rights reserved - 2019" #版权
+canonifyurls = true 
 
 [params]
-  description = "keep hungry"
+  description = "有趣得生活"
+  cover = "images/cover.jpg" #自己找的博客封面，要够大够酷
+  author = "蔡锡生"
+  authorlocation = "hangzhou, China"
+  authorwebsite = "xxxx" #作者站点
+  bio= "launcher|高级软件工程师" #作者简介
+  logo = "images/ganni.jpg" #作者头像
+  #googleAnalyticsUserID = "UA-79101-12" 
+  # Optional RSS-Link, if not provided it defaults to the standard index.xml
+  #RSSLink = "http://feeds.feedburner.com/..."
+  githubName = "xishengcai" #github用户名
+  #twitterName = "vjeantet" 
+  # facebookName = ""
+  #linkedinName = "" #LinkedIn用户名
+  # set true if you are not proud of using Hugo (true will hide the footer note "Proudly published with HUGO.....")
+  hideHUGOSupport = false #是否显示Hugo水印
+  [params.social]
+    linkedin = "https://cn.linkedin.com/in/zifeng"
+	
+[[menu.main]] #页面菜单参数
+  name = "xisheng blog"
+  weight = -120
+  identifier = "blog"
+  url = "/"
 
-[author]
-  name = "vaga"
-  homepage = "http://xisheng.vip"
-
-[[params.social]]
-  name = "github"
-  url = "https://github.com/xishengcai"
-
-[params.style]
-  darkestColor = "#d35050"
-  darkColor = "#212121"
-  lightColor = "#f5e3e0"
-  lightestColor = "#f5f5f5"
-  primaryColor = "#fff"
+[[menu.main]]
+  name = "About me"
+  weight = -110
+  identifier = "about"
+  url = "/about"

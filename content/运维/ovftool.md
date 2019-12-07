@@ -1,5 +1,5 @@
 ---
-title: "yum install rpm"
+title: "ovftool usage"
 date: 2019-10-23T16:08:36+08:00
 draft: false
 ---

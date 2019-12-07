@@ -1,7 +1,8 @@
+---
 title: "helm 入门实践"
-date: 2019-12-7T16:08:36+08:00
+date: 2019-10-04T16:10:09+08:00
 draft: false
-# helm 入门实践
+---
 
 ## 下载二进制文件
 echo "Helm由客户端命helm令行工具和服务端tiller组成，Helm的安装十分简单。 下载helm命令行工具到master节点"
@@ -153,26 +154,34 @@ helm install local-repo/myapp
     顺序查找，下面找到的覆盖上面找到的值。
     
 ### 模板函数
-quote是最常用的模板函数，它能把ABC转化为“ABC”。它带一个参数 
+quote
+>最常用的模板函数，它能把ABC转化为“ABC”。它带一个参数 
+```
 {{ quote .Values.favorite.drink }}
+```
 
-| 管道，类似linux下的管道。 
+"|" 
+>管道，类似linux下的管道。
+```
 {{ quote .Values.favorite.drink }} 与 {{ .Values.favorite.drink | quote }} 效果一样。
+``` 
 
 default 模板函数 
-制定默认值 
+>制定默认值 
+```
 drink: {{ .Values.favorite.drink | default “tea” | quote }} 
-如果在values中无法找到favorite.drink，则配置为“tea”。
+```
+
+*如果在values中无法找到favorite.drink，则配置为“tea”。*
 
 indent 模板函数 
-对左空出空格 
-例如
-
+>对左空出空格 
+```
 data:
   myvalue: "Hello World"
 {{ include "mychart_app" . | indent 2 }}
 会使渲染后的取值于左边空出两个空格，以符合yaml语法。
-
+```
 ### 应用安装
 
 ### 应用检测

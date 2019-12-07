@@ -66,8 +66,8 @@ Autoconf 及 Automake 这两套工具来协助我们自动产生 Makefile文件
 ```
 yum -y install gcc wget autoconf
 ```
-下载privoxy,用于将shadowSocket加密的数据转换为http协议<br>
-如果无法下载,clone本项目,我已下载好
+install privoxy,用于将shadowSocket加密的数据转换为http协议<br>
+可以编译安装 也可以 直接 pip install privoxy 安装
 ```
 wget http://www.privoxy.org/sf-download-mirror/Sources/3.0.26%20%28stable%29/privoxy-3.0.26-stable-src.tar.gz
 tar -zxvf privoxy-3.0.26-stable-src.tar.gz

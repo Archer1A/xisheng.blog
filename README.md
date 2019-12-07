@@ -8,9 +8,18 @@ go get -v hugo
 ## start create you blog
 hego new xisheng.blog
 
+## new blog
+hugo new post/my-first-post.md
+
+## download them
+cd themes
+git clone https://github.com/vjeantet/hugo-theme-casper casper
+
+
 # 生成public 静态文件
 hugo -t casper
 
 # 配置nginx代理
 在 nginx 中配置public文件的位置
 
+[hugo](https://gohugo.io/getting-started/directory-structure/)

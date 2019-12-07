@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Kubernetes on </title>
+    <link>/kubernetes/</link>
+    <description>Recent content in Kubernetes on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Fri, 18 Oct 2019 16:08:36 +0800</lastBuildDate>
+    
+	<atom:link href="/kubernetes/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>cloud_provider</title>
+      <link>/kubernetes/aliyun_kubernetes_volume/</link>
+      <pubDate>Fri, 18 Oct 2019 16:08:36 +0800</pubDate>
+      
+      <guid>/kubernetes/aliyun_kubernetes_volume/</guid>
+      <description> 阿里云 csi 使用帮助 阿里云 云盘存储卷使用帮助 </description>
+    </item>
+    
+    <item>
+      <title>cloud_provider</title>
+      <link>/kubernetes/cloud_privoder/</link>
+      <pubDate>Fri, 18 Oct 2019 16:08:36 +0800</pubDate>
+      
+      <guid>/kubernetes/cloud_privoder/</guid>
+      <description>cloudprovider.Interface
+在 Kubernetes v1.6，引入了 Cloud Controller Manager（CCM），目的就是最终替代 Cloud Provider。截止到最新的 Kubernetes v1.11，还是处于 beta 阶段。
+Cloud Provider 的作用 在 Kubernetes 中有三个组件对 Cloud Provider 有依赖，分别是： - kube-controller-manager - kubelet - kube-apiserver
+alicloud https://github.com/kubernetes/cloud-provider-alibaba-cloud/blob/b83e89ae7bbd482fbabac79d2704c1266092c0a9/docs/getting-started.md
+Update kubelet info with provider id info and restart kubelet:You should provide &amp;ndash;hostname-override=${REGION_ID}.${INSTANCE_ID} &amp;ndash;provider-id=${REGION_ID}.${INSTANCE_ID} arguments in all of your kubelet unit file. The format is ${REGION_ID}.${INSTANCE_ID}. See kubelet.service for more details.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>/kubernetes/dashboard/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/kubernetes/dashboard/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>/kubernetes/helm/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/kubernetes/helm/</guid>
+      <description>title: &amp;ldquo;helm 入门实践&amp;rdquo; date: 2019-12-7T16:08:36+08:00 draft: false
+helm 入门实践 下载二进制文件 echo &amp;ldquo;Helm由客户端命helm令行工具和服务端tiller组成，Helm的安装十分简单。 下载helm命令行工具到master节点&amp;rdquo;
+wget https://storage.googleapis.com/kubernetes-helm/helm-v2.15.0-linux-amd64.tar.gz tar -zxvf ../soft_package/helm-v2.15.0-linux-amd64.tar.gz mv -f ./linux-amd64/helm /usr/local/bin/ rm -rf ./linux-amd64  创建RBAC角色 echo &amp;quot;apiVersion: v1 kind: ServiceAccount metadata: name: tiller namespace: kube-system --- apiVersion: rbac.authorization.k8s.io/v1beta1 kind: ClusterRoleBinding metadata: name: tiller roleRef: apiGroup: rbac.authorization.k8s.io kind: ClusterRole name: cluster-admin subjects: - kind: ServiceAccount name: tiller namespace: kube-system&amp;quot; &amp;gt; tiller_rbac.yaml  kubectl create -f tiller_rbac.yaml  创建 tiller deployment helm init --service-account tiller --skip-refresh -i registry.</description>
+    </item>
+    
+    <item>
+      <title>network</title>
+      <link>/kubernetes/network/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/kubernetes/network/</guid>
+      <description> CIDR ROUTE IPTABLES Gateway </description>
+    </item>
+    
+  </channel>
+</rss>

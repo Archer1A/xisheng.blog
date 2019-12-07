@@ -1,8 +1,7 @@
 name = "m10c"
 license = "MIT"
 licenselink = "https://github.com/vaga/hugo-theme-m10c/blob/master/LICENSE.md"
-description = "A minimalistic (m10c) theme for bloggers"
-homepage = "https://github.com/vaga/hugo-theme-m10c"
+homepage = "http://xisheng.vip"
 tags = ["blog", "minimalistic", "minimal", "responsive", "dark"]
 
 features = [
@@ -15,7 +14,20 @@ min_version = 0.55
 
 theme = "m10c"
 
+[params]
+  description = "keep hungry"
+
 [author]
   name = "vaga"
-  homepage = "https://vaga.io"
+  homepage = "http://xisheng.vip"
 
+[[params.social]]
+  name = "github"
+  url = "https://github.com/xishengcai"
+
+[params.style]
+  darkestColor = "#d35050"
+  darkColor = "#212121"
+  lightColor = "#f5e3e0"
+  lightestColor = "#f5f5f5"
+  primaryColor = "#fff"

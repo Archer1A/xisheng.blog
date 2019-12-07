@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <title> // </title>
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.55.0-DEV" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="John Doe" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="/css/main.min.f90f5edd436ec7b74ad05479a05705770306911f721193e7845948fb07fe1335.css" />
+
+    
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content=""/>
+<meta name="twitter:description" content="title: &ldquo;helm 入门实践&rdquo; date: 2019-12-7T16:08:36&#43;08:00 draft: false
+helm 入门实践 下载二进制文件 echo &ldquo;Helm由客户端命helm令行工具和服务端tiller组成，Helm的安装十分简单。 下载helm命令行工具到master节点&rdquo;
+wget https://storage.googleapis.com/kubernetes-helm/helm-v2.15.0-linux-amd64.tar.gz tar -zxvf ../soft_package/helm-v2.15.0-linux-amd64.tar.gz mv -f ./linux-amd64/helm /usr/local/bin/ rm -rf ./linux-amd64  创建RBAC角色 echo &quot;apiVersion: v1 kind: ServiceAccount metadata: name: tiller namespace: kube-system --- apiVersion: rbac.authorization.k8s.io/v1beta1 kind: ClusterRoleBinding metadata: name: tiller roleRef: apiGroup: rbac.authorization.k8s.io kind: ClusterRole name: cluster-admin subjects: - kind: ServiceAccount name: tiller namespace: kube-system&quot; &gt; tiller_rbac.yaml  kubectl create -f tiller_rbac.yaml  创建 tiller deployment helm init --service-account tiller --skip-refresh -i registry."/>
+
+    <meta property="og:title" content="" />
+<meta property="og:description" content="title: &ldquo;helm 入门实践&rdquo; date: 2019-12-7T16:08:36&#43;08:00 draft: false
+helm 入门实践 下载二进制文件 echo &ldquo;Helm由客户端命helm令行工具和服务端tiller组成，Helm的安装十分简单。 下载helm命令行工具到master节点&rdquo;
+wget https://storage.googleapis.com/kubernetes-helm/helm-v2.15.0-linux-amd64.tar.gz tar -zxvf ../soft_package/helm-v2.15.0-linux-amd64.tar.gz mv -f ./linux-amd64/helm /usr/local/bin/ rm -rf ./linux-amd64  创建RBAC角色 echo &quot;apiVersion: v1 kind: ServiceAccount metadata: name: tiller namespace: kube-system --- apiVersion: rbac.authorization.k8s.io/v1beta1 kind: ClusterRoleBinding metadata: name: tiller roleRef: apiGroup: rbac.authorization.k8s.io kind: ClusterRole name: cluster-admin subjects: - kind: ServiceAccount name: tiller namespace: kube-system&quot; &gt; tiller_rbac.yaml  kubectl create -f tiller_rbac.yaml  创建 tiller deployment helm init --service-account tiller --skip-refresh -i registry." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/kubernetes/helm/" />
+
+
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href=""><img class="app-header-avatar" src="/avatar.jpg" alt="John Doe" /></a>
+      <h1></h1>
+      <p>keep hungry</p>
+      <div class="app-header-social">
+        
+          <a target="_blank" href="https://github.com/xishengcai" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg></a>
+        
+      </div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title"></h1>
+      <div class="post-meta">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Jan 1, 0001
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          2 min read
+        </div></div>
+    </header>
+    <div class="post-content">
+      
+
+<p>title: &ldquo;helm 入门实践&rdquo;
+date: 2019-12-7T16:08:36+08:00
+draft: false</p>
+
+<h1 id="helm-入门实践">helm 入门实践</h1>
+
+<h2 id="下载二进制文件">下载二进制文件</h2>
+
+<p>echo &ldquo;Helm由客户端命helm令行工具和服务端tiller组成，Helm的安装十分简单。 下载helm命令行工具到master节点&rdquo;</p>
+
+<pre><code>wget https://storage.googleapis.com/kubernetes-helm/helm-v2.15.0-linux-amd64.tar.gz
+tar -zxvf ../soft_package/helm-v2.15.0-linux-amd64.tar.gz
+mv -f ./linux-amd64/helm /usr/local/bin/
+rm -rf ./linux-amd64
+</code></pre>
+
+<h2 id="创建rbac角色">创建RBAC角色</h2>
+
+<pre><code>echo &quot;apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: tiller
+  namespace: kube-system
+---
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: ClusterRoleBinding
+metadata:
+  name: tiller
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: cluster-admin
+subjects:
+  - kind: ServiceAccount
+    name: tiller
+    namespace: kube-system&quot; &gt; tiller_rbac.yaml
+</code></pre>
+
+<pre><code>kubectl create -f tiller_rbac.yaml
+</code></pre>
+
+<h2 id="创建-tiller-deployment">创建 tiller deployment</h2>
+
+<pre><code>helm init --service-account tiller --skip-refresh -i registry.cn-hangzhou.aliyuncs.com/launcher/tiller:v2.15.0
+</code></pre>
+
+<h2 id="使用默认仓库创建应用">使用默认仓库创建应用</h2>
+
+<pre><code>helm repo list
+helm search redis
+helm install stable/redis
+</code></pre>
+
+<p>复杂点的</p>
+
+<pre><code># 5.dashboard
+# 当使用Ingress将HTTPS的服务暴露到集群外部时，需要HTTPS证书，这里将*.frognew.com的证书和秘钥配置到Kubernetes中。
+# 后边部署在kube-system命名空间中的dashboard要使用这个证书，因此这里先在kube-system中创建证书的secret
+kubectl create secret tls frognew-com-tls-secret --cert=/etc/kubernetes/pki/ca.crt --key=/etc/kubernetes/pki/ca.key -n kube-system
+helm del --purge kubernetes-dashboard
+cat &lt;&lt;EOF &gt; kubernetes-dashboard.yaml
+ingress:
+  enabled: true
+  hosts:
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: &quot;true&quot;
+    nginx.ingress.kubernetes.io/secure-backends: &quot;true&quot;
+  tls:
+    - secretName: frognew-com-tls-secret
+      hosts:
+rbac:
+  clusterAdminRole: true
+EOF
+
+helm install ./charts/stable/kubernetes-dashboard \
+-n kubernetes-dashboard \
+--namespace kube-system  \
+-f kubernetes-dashboard.yaml
+
+</code></pre>
+
+<h2 id="创建私有charts-仓库">创建私有charts 仓库</h2>
+
+<pre><code>yum install supervisor -y
+
+cat  &lt;&lt;EOF&gt; /etc/supervisord.d/helm-server.ini
+[program:helm]
+command = helm serve --address 0.0.0.0:8881 --repo-path /data/loca-char-repo
+autostart = true
+autorestart = true
+user = root
+startretries = 3
+stdout_logfile_maxbytes = 20MB
+stdout_logfile_maxbytes = 10
+stdout_logfile = /var/log/helm.log
+EOF
+
+systemctl restart supervisord
+
+mkdir -p /data/loca-char-repo
+
+</code></pre>
+
+<h2 id="在私有helm-仓库添加应用">在私有helm 仓库添加应用</h2>
+
+<pre><code>cd /data/loca-char-repo
+helm create myapp
+helm lint ./myapp
+helm package myapp/
+helm repo index myapp --url=http://xxxxx:8881 .
+
+## 官方示例git clone https://github.com/XishengCai/charts.git
+</code></pre>
+
+<h2 id="helm-通过私有仓库创建应用">helm 通过私有仓库创建应用</h2>
+
+<pre><code>helm repo add local-repo http://xxxx:8881
+helm update
+helm search redis
+helm install local-repo/myapp
+</code></pre>
+
+<h2 id="template-key">template key</h2>
+
+<pre><code>tpl
+dir
+template
+indent    # 左边空格
+
+helm模板语法嵌套在{{和}}之间，有三个常见的 
+.Values.* 
+从value.yaml文件中读取 
+.Release.* 
+从运行Release的元数据读取 
+.Template.* 
+.Chart.* 
+从Chart.yaml文件中读取 
+.Files.* 
+.Capabilities.*
+</code></pre>
+
+<h3 id="获取helm渲染后的k8s可执行的yaml文件-只渲染不运行">获取helm渲染后的k8s可执行的yaml文件（只渲染不运行）。</h3>
+
+<pre><code>helm install --debug --dry-run ./mychart
+
+.Values.*的值可以来自以下 
++ values.yaml文件 
++ 如果是子chart，值来自父chart的values.yaml 
++ 通过helm install -f标志的文件 
++ 来自–set中的配置
+
+顺序查找，下面找到的覆盖上面找到的值。
+</code></pre>
+
+<h3 id="模板函数">模板函数</h3>
+
+<p>quote是最常用的模板函数，它能把ABC转化为“ABC”。它带一个参数
+{{ quote .Values.favorite.drink }}</p>
+
+<p>| 管道，类似linux下的管道。
+{{ quote .Values.favorite.drink }} 与 {{ .Values.favorite.drink | quote }} 效果一样。</p>
+
+<p>default 模板函数
+制定默认值
+drink: {{ .Values.favorite.drink | default “tea” | quote }}
+如果在values中无法找到favorite.drink，则配置为“tea”。</p>
+
+<p>indent 模板函数
+对左空出空格
+例如</p>
+
+<p>data:
+  myvalue: &ldquo;Hello World&rdquo;
+{{ include &ldquo;mychart_app&rdquo; . | indent 2 }}
+会使渲染后的取值于左边空出两个空格，以符合yaml语法。</p>
+
+<h3 id="应用安装">应用安装</h3>
+
+<h3 id="应用检测">应用检测</h3>
+
+<h3 id="应用归档">应用归档</h3>
+
+<h3 id="应用依赖">应用依赖</h3>
+
+<h3 id="link">link</h3>
+
+<ul>
+<li><a href="https://changbo.tech/blog/29dc945b.html">helm blog</a></li>
+<li><a href="https://github.com/helm/helm">helm github</a></li>
+<li><a href="https://blog.csdn.net/liukuan73/article/details/79319900">helm blog2</a></li>
+<li><a href="https://www.chengxulvtu.com/supervisor-on-centos-7/">supervisor install</a></li>
+</ul>
+
+    </div>
+    <div class="post-footer">
+      
+    </div>
+  </article>
+
+    </main>
+  </body>
+</html>

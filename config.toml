@@ -1,39 +1,72 @@
-languageCode = "zh_CN" #语言
-title = "xishengcai blog" #博客标题
-baseurl = "http://xisheng.vip"
-paginate = 5 #分页每页记录数
-DisqusShortname = "xisheng" #评论时显示的名字
-Copyright = "All rights reserved - 2019" #版权
-canonifyurls = true 
+baseURL = "http://xisheng.vip"
 
-[params]
-  description = "有趣得生活"
-  cover = "images/cover.jpg" #自己找的博客封面，要够大够酷
-  author = "蔡锡生"
-  authorlocation = "hangzhou, China"
-  authorwebsite = "xxxx" #作者站点
-  bio= "launcher|高级软件工程师" #作者简介
-  logo = "images/ganni.jpg" #作者头像
-  #googleAnalyticsUserID = "UA-79101-12" 
-  # Optional RSS-Link, if not provided it defaults to the standard index.xml
-  #RSSLink = "http://feeds.feedburner.com/..."
-  githubName = "xishengcai" #github用户名
-  #twitterName = "vjeantet" 
-  # facebookName = ""
-  #linkedinName = "" #LinkedIn用户名
-  # set true if you are not proud of using Hugo (true will hide the footer note "Proudly published with HUGO.....")
-  hideHUGOSupport = false #是否显示Hugo水印
-  [params.social]
-    linkedin = "https://cn.linkedin.com/in/zifeng"
-	
-[[menu.main]] #页面菜单参数
-  name = "xisheng blog"
-  weight = -120
-  identifier = "blog"
-  url = "/"
+languageCode = "en-us"
+DefaultContentLanguage = "en"
+title = "瓦肯船长"
+theme = "hugo-theme-techdoc"
+
+hasCJKLanguage = true
+metaDataFormat = "yaml"
+
+pygmentsCodeFences = true
+pygmentsUseClasses = true
+
+defaultContentLanguage = "en"
+defaultContentLanguageInSubdir= false
+enableMissingTranslationPlaceholders = false
+
+[Params]
+
+    # Souce Code repository section
+    description = "put your description"
+    github_repository = "https://github.com/xishengcai/xisheng.blog.git"
+    version = ""
+
+    # Documentation repository section
+    # documentation repository (set edit link to documentation repository)
+    github_doc_repository = "https://github.com/xishengcai/xisheng.blog.git"
+
+    # Analytic section
+    google_analytics_id = "" # Your Google Analytics tracking id
+    tag_manager_container_id = "" # Your Google Tag Manager container id
+    google_site_verification = "" # Your Google Site Verification for Search Console
+
+    # Open Graph and Twitter Cards settings section
+    title = "Hugo Techdoc Theme"
+    images = ["cover.jpg"]
+    # See https://gohugo.io/templates/internal/#open-graph
+    # See https://gohugo.io/templates/internal/#twitter-cards
+
+    # Theme settings section
+    # Theme color
+    custom_font_color = ""
+    custom_background_color = ""
+
+    # Documentation Menu section
+    # Menu style settings
+    menu_style = "open-menu" # "open-menu" or "slide-menu"
+
+    # Date format
+    dateformat = "" # default "2 Jan 2006"
+    # See the format reference https://gohugo.io/functions/format/#hugo-date-and-time-templating-reference
+
+    # path name excluded from documentation menu
+    menu_exclusion = [
+        "archives",
+        "archive",
+        "blog",
+        "entry",
+        "post",
+        "posts"
+    ]
+
+# Global menu section
+[[menu.main]]
+    name = "Home"
+    url = "http://xisheng.vip"
+    weight = 1
 
 [[menu.main]]
-  name = "About me"
-  weight = -110
-  identifier = "about"
-  url = "/about"
+    name = "朗澈混合云"
+    url = "http://lcs.lstack.com.cn/"
+    weight = 2

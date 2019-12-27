@@ -15,9 +15,11 @@ hugo new post/my-first-post.md
 cd themes
 git clone https://github.com/vjeantet/hugo-theme-casper casper
 
+## local debug
+hugo server -t hugo-theme-techdoc --bind 0.0.0.0 --port 81 -w
 
-# 生成public 静态文件
-hugo -t casper
+## 生成public 静态文件
+hugo -t hugo-theme-techdoc -d public_html
 
 # 配置nginx代理
 在 nginx 中配置public文件的位置

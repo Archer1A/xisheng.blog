@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>科学上网 - 瓦肯船长</title>
+<meta name="description" content="put your description">
+<meta name="generator" content="Hugo 0.62.0-DEV" />
+<link href="http://localhost:81index.xml" rel="alternate" type="application/rss+xml">
+<link rel="canonical" href="http://localhost:81/post/kexueshangwang/">
+<link rel="stylesheet" href="http://localhost:81/css/theme.min.css">
+<script src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+<link rel="stylesheet" href="http://localhost:81/css/chroma.min.css">
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery.easing@1.4.1/jquery.easing.min.js"></script>
+<script src="http://localhost:81/js/bundle.js"></script><style>
+:root {}
+</style>
+<meta property="og:title" content="科学上网" />
+<meta property="og:description" content="proxy 由于墙的存在,无法拉取镜像,建议科学上网 下面介绍怎么搭建代理 server 在境外代理机器上通过pip安装shadowsocks,并且启动服务端程序[如" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:81/post/kexueshangwang/" />
+<meta property="og:image" content="http://localhost:81/og-image.png"/>
+<meta property="article:published_time" content="2019-10-04T16:10:09+08:00" />
+<meta property="article:modified_time" content="2019-10-04T16:10:09+08:00" /><meta property="og:site_name" content="Hugo Techdoc Theme" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://localhost:81/og-image.png"/>
+
+<meta name="twitter:title" content="科学上网"/>
+<meta name="twitter:description" content="proxy 由于墙的存在,无法拉取镜像,建议科学上网 下面介绍怎么搭建代理 server 在境外代理机器上通过pip安装shadowsocks,并且启动服务端程序[如"/>
+<meta itemprop="name" content="科学上网">
+<meta itemprop="description" content="proxy 由于墙的存在,无法拉取镜像,建议科学上网 下面介绍怎么搭建代理 server 在境外代理机器上通过pip安装shadowsocks,并且启动服务端程序[如">
+<meta itemprop="datePublished" content="2019-10-04T16:10:09&#43;08:00" />
+<meta itemprop="dateModified" content="2019-10-04T16:10:09&#43;08:00" />
+<meta itemprop="wordCount" content="1079">
+<meta itemprop="image" content="http://localhost:81/og-image.png"/>
+
+
+
+<meta itemprop="keywords" content="" /></head>
+<body><div class="container"><header>
+<h1>瓦肯船长</h1>
+<a href="https://github.com/xishengcai/xisheng.blog.git" class="github"><i class="fab fa-github"></i></a>
+<p class="description">put your description</p>
+
+</header>
+<div class="global-menu">
+<nav>
+<ul>
+<li><a href="/examplesite/content">Home</a></li>
+<li><a href="http://lcs.lstack.com.cn/">朗澈混合云</a></li></ul>
+</nav>
+</div>
+<div class="content-container">
+<main><h1>科学上网</h1>
+<h1 id="proxy">proxy</h1>
+<p>由于墙的存在,无法拉取镜像,建议科学上网
+下面介绍怎么搭建代理</p>
+<h3 id="server">server</h3>
+<p>在境外代理机器上通过pip安装shadowsocks,并且启动服务端程序<!-- raw HTML omitted -->
+[如果您还没有代理机,可以选择在阿里云上购买一台香港服务器,虽然有点贵，但是稳定不，不会被墙]https://promotion.aliyun.com/ntms/yunparter/invite.html?userCode=j7wyhezj)</p>
+<pre><code>yum -y install epel-release python-pip automake
+pip install shadowsocks
+</code></pre><pre><code>cat &lt;&lt;EOF&gt; /etc/shadowsocks.conf
+{
+     &quot;server&quot;:&quot;0.0.0.0&quot;,
+     &quot;server_port&quot;: 12345 ,
+     &quot;local_port&quot;:1080,
+     &quot;password&quot;:&quot;yourpassword&quot;,
+     &quot;timeout&quot;:600,
+     &quot;method&quot;:&quot;aes-256-cfb&quot;,
+     &quot;workers&quot;:1
+}
+EOF
+</code></pre><pre><code>ssserver -c /etc/shadowsocks.conf -d start //后台启动
+</code></pre><h3 id="client">client</h3>
+<p>在境内服务器安装一个代理转换程序privoxy,将shaodows加密的流支持http协议</p>
+<pre><code>yum -y install epel-release python-pip shadowsocks
+</code></pre><p>编写配置文件,将server_ip修改为你境外的服务器ip地址 <!-- raw HTML omitted -->
+12345是境外服务器shadowSocket暴露的端口 <!-- raw HTML omitted -->
+local_port是你本地shadowSocket监听的端口 <!-- raw HTML omitted --></p>
+<pre><code>cat &lt;&lt;EOF&gt; /etc/shadowsocks.conf
+{
+        &quot;server&quot;:&quot;server_ip&quot;,
+        &quot;server_port&quot;:12345 ,
+        &quot;local_port&quot;:1080,
+        &quot;password&quot;:&quot;yourpassword&quot;,
+        &quot;timeout&quot;:600,
+        &quot;method&quot;:&quot;aes-256-cfb&quot;,
+        &quot;workers&quot;:1
+}
+EOF
+</code></pre><pre><code>启动shadow sockets 客户端服务
+</code></pre>
+<pre><code>sslocal  -c /etc/shadowsocks.conf -d start //后台启动
+</code></pre><p>Autoconf 及 Automake 这两套工具来协助我们自动产生 Makefile文件</p>
+<pre><code>yum -y install gcc wget autoconf
+</code></pre><p>install privoxy,用于将shadowSocket加密的数据转换为http协议<!-- raw HTML omitted -->
+可以编译安装 也可以 直接 pip install privoxy 安装</p>
+<pre><code>wget http://www.privoxy.org/sf-download-mirror/Sources/3.0.26%20%28stable%29/privoxy-3.0.26-stable-src.tar.gz
+tar -zxvf privoxy-3.0.26-stable-src.tar.gz
+cd privoxy-3.0.26-stable
+</code></pre><p>编译安装</p>
+<pre><code>useradd privoxy
+autoheader &amp;&amp; autoconf
+./configure
+make &amp;&amp; make install
+</code></pre><p>在文件/usr/local/etc/privoxy/config中找到下面两行,去掉注释</p>
+<pre><code>forward-socks5t   /               127.0.0.1:1080
+listen-address  127.0.0.1:8118
+</code></pre><p>启动协议转换代理：
+<code>privoxy --user privoxy /usr/local/etc/privoxy/config  # 以用户privoxy 的身份运行指定配置文件</code></p>
+<h3 id="heading">配置环境变量</h3>
+<p>export http_proxy=http://127.0.0.1:8118 <!-- raw HTML omitted -->
+export https_proxy=http://127.0.0.1:8118 <!-- raw HTML omitted -->
+export ftp_proxy=http://127.0.0.1:8118 <!-- raw HTML omitted --></p>
+<h3 id="windows-client">windows client</h3>
+<p><a href="https://github.com/shadowsocks/shadowsocks-windows/releases">windows 小飞机代理工具</a></p>
+<h3 id="heading-1">总结</h3>
+<pre><code>服务端（socket5 协议）  - - - - -  客户端 （socket5协议）
+			             |
+			             |
+			privoxy（socket5 和 http协议互转）
+			             |
+			             |
+                        具体应用curl, yum,wget等
+</code></pre><h3 id="trouble-shouting">trouble shouting</h3>
+<p>q1: AttributeError: /usr/lib/x86_64-linux-gnu/libcrypto.so.1.1: undefined symbol: EVP_CIPHER_CTX_cleanup</p>
+<p>fix method:</p>
+<pre><code>修改方法：
+
+用vim打开文件：vim /usr/local/lib/python2.7/dist-packages/shadowsocks/crypto/openssl.py (该路径请根据自己的系统情况自行修改，如果不知道该文件在哪里的话，可以使用find命令查找文件位置)
+跳转到52行（shadowsocks2.8.2版本，其他版本搜索一下cleanup）
+进入编辑模式
+将第52行libcrypto.EVP_CIPHER_CTX_cleanup.argtypes = (c_void_p,) 
+改为libcrypto.EVP_CIPHER_CTX_reset.argtypes = (c_void_p,)
+再次搜索cleanup（全文件共2处，此处位于111行），将libcrypto.EVP_CIPHER_CTX_cleanup(self._ctx) 
+改为libcrypto.EVP_CIPHER_CTX_reset(self._ctx)
+保存并退出
+启动shadowsocks服务：service shadowsocks start 或 sslocal -c ss配置文件目录
+问题解决
+</code></pre><div class="edit-meta">
+Last updated on 4 Oct 2019
+
+
+<br>
+Published on 4 Oct 2019
+<br><a href="https://github.com/xishengcai/xisheng.blog.git/edit/master/content/post/kexueshangwang.md" class="edit-page"><i class="fas fa-pen-square"></i> Edit on GitHub</a></div><nav class="pagination"><a class="nav nav-prev" href="/post/kubernetes/helm/" title="helm 入门实践"><i class="fas fa-arrow-left" aria-hidden="true"></i> Prev - helm 入门实践</a>
+
+</nav><footer><p class="powered">Powered by <a href="https://gohugo.io">Hugo</a>. Theme by <a href="https://themes.gohugo.io/hugo-theme-techdoc/">TechDoc</a>. Designed by <a href="https://github.com/thingsym/hugo-theme-techdoc">Thingsym</a>.</p>
+</footer>
+</main><div class="sidebar">
+
+<nav class="open-menu">
+<ul>
+<li class=""><a href="http://localhost:81">Home</a></li>
+
+
+</ul>
+</nav>
+
+
+
+<div class="sidebar-footer"></div>
+</div>
+</div><a href="#" id="backtothetop-fixed" class="backtothetop"
+ data-backtothetop-duration="600"
+ data-backtothetop-easing="easeOutQuart"
+ data-backtothetop-fixed-fadeIn="1000"
+ data-backtothetop-fixed-fadeOut="1000"
+ data-backtothetop-fixed-bottom="10"
+ data-backtothetop-fixed-right="20">
+<span class="fa-layers fa-fw">
+<i class="fas fa-circle"></i>
+<i class="fas fa-arrow-circle-up"></i>
+</span></a>
+</div>
+</body>
+</html>

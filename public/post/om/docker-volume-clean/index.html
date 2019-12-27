@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>docker clean volume - 瓦肯船长</title>
+<meta name="description" content="put your description">
+<meta name="generator" content="Hugo 0.62.0-DEV" />
+<link href="http://localhost:81index.xml" rel="alternate" type="application/rss+xml">
+<link rel="canonical" href="http://localhost:81/post/om/docker-volume-clean/">
+<link rel="stylesheet" href="http://localhost:81/css/theme.min.css">
+<script src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+<link rel="stylesheet" href="http://localhost:81/css/chroma.min.css">
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery.easing@1.4.1/jquery.easing.min.js"></script>
+<script src="http://localhost:81/js/bundle.js"></script><style>
+:root {}
+</style>
+<meta property="og:title" content="docker clean volume" />
+<meta property="og:description" content="docker 磁盘清理 自动清理 docker system prune 已使用的镜像：指所有已被容器（包括stop的）关联的镜像，也就是docker ps -a所看到的所有容器对应的image。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:81/post/om/docker-volume-clean/" />
+<meta property="og:image" content="http://localhost:81/og-image.png"/>
+<meta property="article:published_time" content="2019-10-23T16:08:36+08:00" />
+<meta property="article:modified_time" content="2019-10-23T16:08:36+08:00" /><meta property="og:site_name" content="Hugo Techdoc Theme" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://localhost:81/og-image.png"/>
+
+<meta name="twitter:title" content="docker clean volume"/>
+<meta name="twitter:description" content="docker 磁盘清理 自动清理 docker system prune 已使用的镜像：指所有已被容器（包括stop的）关联的镜像，也就是docker ps -a所看到的所有容器对应的image。"/>
+<meta itemprop="name" content="docker clean volume">
+<meta itemprop="description" content="docker 磁盘清理 自动清理 docker system prune 已使用的镜像：指所有已被容器（包括stop的）关联的镜像，也就是docker ps -a所看到的所有容器对应的image。">
+<meta itemprop="datePublished" content="2019-10-23T16:08:36&#43;08:00" />
+<meta itemprop="dateModified" content="2019-10-23T16:08:36&#43;08:00" />
+<meta itemprop="wordCount" content="818">
+<meta itemprop="image" content="http://localhost:81/og-image.png"/>
+
+
+
+<meta itemprop="keywords" content="" /></head>
+<body><div class="container"><header>
+<h1>瓦肯船长</h1>
+<a href="https://github.com/xishengcai/xisheng.blog.git" class="github"><i class="fab fa-github"></i></a>
+<p class="description">put your description</p>
+
+</header>
+<div class="global-menu">
+<nav>
+<ul>
+<li><a href="/examplesite/content">Home</a></li>
+<li><a href="http://lcs.lstack.com.cn/">朗澈混合云</a></li></ul>
+</nav>
+</div>
+<div class="content-container">
+<main><h1>docker clean volume</h1>
+<h2 id="docker-">docker 磁盘清理</h2>
+<h2 id="heading">自动清理</h2>
+<p>docker system prune
+已使用的镜像：指所有已被容器（包括stop的）关联的镜像，也就是docker ps -a所看到的所有容器对应的image。
+未引用镜像：没有被分配或使用在容器中的镜像
+悬空镜像（dangling image）：未配置任何Tag（也就是无法被引用）的镜像。通常是由于镜像编译过程中未指定-t参数配置Tag导致的。</p>
+<p>docker system prune后可以加额外的参数，如：
+docker system prune -a ： 一并清除所有未被使用的镜像和悬空镜像。
+docker system prune -f ： 用以强制删除，不提示信息。</p>
+<p>docker image prune：删除悬空的镜像。</p>
+<p>docker container prune：删除无用的容器。
+&ndash;默认情况下docker container prune命令会清理掉所有处于stopped状态的容器
+&ndash;如果不想那么残忍统统都删掉，也可以使用&ndash;filter标志来筛选出不希望被清理掉的容器。例子：清除掉所有停掉的容器，但24内创建的除外：
+&ndash;$ docker container prune &ndash;filter &ldquo;until=24h&rdquo;</p>
+<p>docker volume prune：删除无用的卷。
+docker network prune：删除无用的网络</p>
+<h2 id="heading-1">手动清除</h2>
+<p>对于悬空镜像和未使用镜像可以使用手动进行个别删除：
+1、删除所有悬空镜像，不删除未使用镜像：
+docker rmi $(docker images -f &ldquo;dangling=true&rdquo; -q)
+2、删除所有未使用镜像和悬空镜像
+docker rmi $(docker images -q)
+3、清理卷
+如果卷占用空间过高，可以清除一些不使用的卷，包括一些未被任何容器调用的卷（-v 详细信息中若显示 LINKS = 0，则是未被调用）：
+删除所有未被容器引用的卷：
+docker volume rm $(docker volume ls -qf dangling=true)
+4、容器清理
+如果发现是容器占用过高的空间，可以手动删除一些：
+删除所有已退出的容器：
+对于悬空镜像和未使用镜像可以使用手动进行个别删除：
+1、删除所有悬空镜像，不删除未使用镜像：
+docker rmi $(docker images -f &ldquo;dangling=true&rdquo; -q)
+2、删除所有未使用镜像和悬空镜像
+docker rmi $(docker images -q)
+3、清理卷
+如果卷占用空间过高，可以清除一些不使用的卷，包括一些未被任何容器调用的卷（-v 详细信息中若显示 LINKS = 0，则是未被调用）：
+删除所有未被容器引用的卷：
+docker volume rm $(docker volume ls -qf dangling=true)
+4、容器清理
+如果发现是容器占用过高的空间，可以手动删除一些：
+删除所有已退出的容器：</p>
+<div class="edit-meta">
+Last updated on 23 Oct 2019
+
+
+<br>
+Published on 23 Oct 2019
+<br><a href="https://github.com/xishengcai/xisheng.blog.git/edit/master/content/post/om/docker%20volume%20clean.md" class="edit-page"><i class="fas fa-pen-square"></i> Edit on GitHub</a></div><nav class="pagination"><a class="nav nav-prev" href="/post/" title="Posts"><i class="fas fa-arrow-left" aria-hidden="true"></i> Prev - Posts</a>
+
+</nav><footer><p class="powered">Powered by <a href="https://gohugo.io">Hugo</a>. Theme by <a href="https://themes.gohugo.io/hugo-theme-techdoc/">TechDoc</a>. Designed by <a href="https://github.com/thingsym/hugo-theme-techdoc">Thingsym</a>.</p>
+</footer>
+</main><div class="sidebar">
+
+<nav class="open-menu">
+<ul>
+<li class=""><a href="http://localhost:81">Home</a></li>
+
+
+</ul>
+</nav>
+
+
+
+<div class="sidebar-footer"></div>
+</div>
+</div><a href="#" id="backtothetop-fixed" class="backtothetop"
+ data-backtothetop-duration="600"
+ data-backtothetop-easing="easeOutQuart"
+ data-backtothetop-fixed-fadeIn="1000"
+ data-backtothetop-fixed-fadeOut="1000"
+ data-backtothetop-fixed-bottom="10"
+ data-backtothetop-fixed-right="20">
+<span class="fa-layers fa-fw">
+<i class="fas fa-circle"></i>
+<i class="fas fa-arrow-circle-up"></i>
+</span></a>
+</div>
+</body>
+</html>

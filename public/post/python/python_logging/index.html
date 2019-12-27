@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>python log - 瓦肯船长</title>
+<meta name="description" content="put your description">
+<meta name="generator" content="Hugo 0.62.0-DEV" />
+<link href="http://localhost:81index.xml" rel="alternate" type="application/rss+xml">
+<link rel="canonical" href="http://localhost:81/post/python/python_logging/">
+<link rel="stylesheet" href="http://localhost:81/css/theme.min.css">
+<script src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+<link rel="stylesheet" href="http://localhost:81/css/chroma.min.css">
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery.easing@1.4.1/jquery.easing.min.js"></script>
+<script src="http://localhost:81/js/bundle.js"></script><style>
+:root {}
+</style>
+<meta property="og:title" content="python log" />
+<meta property="og:description" content="参考 logging root root = RootLogger(WARNING) Logger.root = root Logger.manager = Manager(Logger.root) ?? root is interface init class Logger(Filterer): def __init__(self, name, level=NOTSET): &quot;&quot;&quot; Initialize the logger with a name and an optional level. &quot;&quot;&quot; Filterer.__init__(self) self.name = name self.level = _checkLevel(level) self.parent = None self.propagate = 1 self.handlers = [] self.disabled = 0" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:81/post/python/python_logging/" />
+<meta property="og:image" content="http://localhost:81/og-image.png"/>
+<meta property="og:site_name" content="Hugo Techdoc Theme" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://localhost:81/og-image.png"/>
+
+<meta name="twitter:title" content="python log"/>
+<meta name="twitter:description" content="参考 logging root root = RootLogger(WARNING) Logger.root = root Logger.manager = Manager(Logger.root) ?? root is interface init class Logger(Filterer): def __init__(self, name, level=NOTSET): &quot;&quot;&quot; Initialize the logger with a name and an optional level. &quot;&quot;&quot; Filterer.__init__(self) self.name = name self.level = _checkLevel(level) self.parent = None self.propagate = 1 self.handlers = [] self.disabled = 0"/>
+<meta itemprop="name" content="python log">
+<meta itemprop="description" content="参考 logging root root = RootLogger(WARNING) Logger.root = root Logger.manager = Manager(Logger.root) ?? root is interface init class Logger(Filterer): def __init__(self, name, level=NOTSET): &quot;&quot;&quot; Initialize the logger with a name and an optional level. &quot;&quot;&quot; Filterer.__init__(self) self.name = name self.level = _checkLevel(level) self.parent = None self.propagate = 1 self.handlers = [] self.disabled = 0">
+
+<meta itemprop="wordCount" content="55">
+<meta itemprop="image" content="http://localhost:81/og-image.png"/>
+
+
+
+<meta itemprop="keywords" content="" /></head>
+<body><div class="container"><header>
+<h1>瓦肯船长</h1>
+<a href="https://github.com/xishengcai/xisheng.blog.git" class="github"><i class="fab fa-github"></i></a>
+<p class="description">put your description</p>
+
+</header>
+<div class="global-menu">
+<nav>
+<ul>
+<li><a href="/examplesite/content">Home</a></li>
+<li><a href="http://lcs.lstack.com.cn/">朗澈混合云</a></li></ul>
+</nav>
+</div>
+<div class="content-container">
+<main><h1>python log</h1>
+<p><a href="https://juejin.im/post/5bc2bd3a5188255c94465d31">参考</a></p>
+<h3 id="logging-root">logging root</h3>
+<pre><code>root = RootLogger(WARNING)
+Logger.root = root
+Logger.manager = Manager(Logger.root)
+
+?? root is interface
+</code></pre>
+<h3 id="init">init</h3>
+<pre><code>class Logger(Filterer):
+    def __init__(self, name, level=NOTSET):
+        &quot;&quot;&quot;
+        Initialize the logger with a name and an optional level.
+        &quot;&quot;&quot;
+        Filterer.__init__(self)
+        self.name = name
+        self.level = _checkLevel(level)
+        self.parent = None
+        self.propagate = 1
+        self.handlers = []
+        self.disabled = 0
+</code></pre><div class="edit-meta">
+
+<br><a href="https://github.com/xishengcai/xisheng.blog.git/edit/master/content/post/python/python_logging.md" class="edit-page"><i class="fas fa-pen-square"></i> Edit on GitHub</a></div><nav class="pagination"><a class="nav nav-prev" href="/post/om/ansible/" title="ansible useage"><i class="fas fa-arrow-left" aria-hidden="true"></i> Prev - ansible useage</a>
+
+</nav><footer><p class="powered">Powered by <a href="https://gohugo.io">Hugo</a>. Theme by <a href="https://themes.gohugo.io/hugo-theme-techdoc/">TechDoc</a>. Designed by <a href="https://github.com/thingsym/hugo-theme-techdoc">Thingsym</a>.</p>
+</footer>
+</main><div class="sidebar">
+
+<nav class="open-menu">
+<ul>
+<li class=""><a href="http://localhost:81">Home</a></li>
+
+
+</ul>
+</nav>
+
+
+
+<div class="sidebar-footer"></div>
+</div>
+</div><a href="#" id="backtothetop-fixed" class="backtothetop"
+ data-backtothetop-duration="600"
+ data-backtothetop-easing="easeOutQuart"
+ data-backtothetop-fixed-fadeIn="1000"
+ data-backtothetop-fixed-fadeOut="1000"
+ data-backtothetop-fixed-bottom="10"
+ data-backtothetop-fixed-right="20">
+<span class="fa-layers fa-fw">
+<i class="fas fa-circle"></i>
+<i class="fas fa-arrow-circle-up"></i>
+</span></a>
+</div>
+</body>
+</html>

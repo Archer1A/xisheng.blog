@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>helm 入门实践 - 瓦肯船长</title>
+<meta name="description" content="put your description">
+<meta name="generator" content="Hugo 0.62.0-DEV" />
+<link href="http://localhost:81index.xml" rel="alternate" type="application/rss+xml">
+<link rel="canonical" href="http://localhost:81/post/kubernetes/helm/">
+<link rel="stylesheet" href="http://localhost:81/css/theme.min.css">
+<script src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+<link rel="stylesheet" href="http://localhost:81/css/chroma.min.css">
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery.easing@1.4.1/jquery.easing.min.js"></script>
+<script src="http://localhost:81/js/bundle.js"></script><style>
+:root {}
+</style>
+<meta property="og:title" content="helm 入门实践" />
+<meta property="og:description" content="下载二进制文件 echo &ldquo;Helm由客户端命helm令行工具和服务端tiller组成，Helm的安装十分简单。 下载helm命令行工具到m" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:81/post/kubernetes/helm/" />
+<meta property="og:image" content="http://localhost:81/og-image.png"/>
+<meta property="article:published_time" content="2019-10-04T16:10:09+08:00" />
+<meta property="article:modified_time" content="2019-10-04T16:10:09+08:00" /><meta property="og:site_name" content="Hugo Techdoc Theme" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://localhost:81/og-image.png"/>
+
+<meta name="twitter:title" content="helm 入门实践"/>
+<meta name="twitter:description" content="下载二进制文件 echo &ldquo;Helm由客户端命helm令行工具和服务端tiller组成，Helm的安装十分简单。 下载helm命令行工具到m"/>
+<meta itemprop="name" content="helm 入门实践">
+<meta itemprop="description" content="下载二进制文件 echo &ldquo;Helm由客户端命helm令行工具和服务端tiller组成，Helm的安装十分简单。 下载helm命令行工具到m">
+<meta itemprop="datePublished" content="2019-10-04T16:10:09&#43;08:00" />
+<meta itemprop="dateModified" content="2019-10-04T16:10:09&#43;08:00" />
+<meta itemprop="wordCount" content="934">
+<meta itemprop="image" content="http://localhost:81/og-image.png"/>
+
+
+
+<meta itemprop="keywords" content="" /></head>
+<body><div class="container"><header>
+<h1>瓦肯船长</h1>
+<a href="https://github.com/xishengcai/xisheng.blog.git" class="github"><i class="fab fa-github"></i></a>
+<p class="description">put your description</p>
+
+</header>
+<div class="global-menu">
+<nav>
+<ul>
+<li><a href="/examplesite/content">Home</a></li>
+<li><a href="http://lcs.lstack.com.cn/">朗澈混合云</a></li></ul>
+</nav>
+</div>
+<div class="content-container">
+<main><h1>helm 入门实践</h1>
+<h2 id="heading">下载二进制文件</h2>
+<p>echo &ldquo;Helm由客户端命helm令行工具和服务端tiller组成，Helm的安装十分简单。 下载helm命令行工具到master节点&rdquo;</p>
+<pre><code>wget https://storage.googleapis.com/kubernetes-helm/helm-v2.15.0-linux-amd64.tar.gz
+tar -zxvf ../soft_package/helm-v2.15.0-linux-amd64.tar.gz
+mv -f ./linux-amd64/helm /usr/local/bin/
+rm -rf ./linux-amd64
+</code></pre><h2 id="rbac">创建RBAC角色</h2>
+<pre><code>echo &quot;apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: tiller
+  namespace: kube-system
+---
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: ClusterRoleBinding
+metadata:
+  name: tiller
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: cluster-admin
+subjects:
+  - kind: ServiceAccount
+    name: tiller
+    namespace: kube-system&quot; &gt; tiller_rbac.yaml
+</code></pre><pre><code>kubectl create -f tiller_rbac.yaml
+</code></pre><h2 id="-tiller-deployment">创建 tiller deployment</h2>
+<pre><code>helm init --service-account tiller --skip-refresh -i registry.cn-hangzhou.aliyuncs.com/launcher/tiller:v2.15.0
+</code></pre><h2 id="heading-1">使用默认仓库创建应用</h2>
+<pre><code>helm repo list
+helm search redis
+helm install stable/redis
+</code></pre><p>复杂点的</p>
+<pre><code># 5.dashboard
+# 当使用Ingress将HTTPS的服务暴露到集群外部时，需要HTTPS证书，这里将*.frognew.com的证书和秘钥配置到Kubernetes中。
+# 后边部署在kube-system命名空间中的dashboard要使用这个证书，因此这里先在kube-system中创建证书的secret
+kubectl create secret tls frognew-com-tls-secret --cert=/etc/kubernetes/pki/ca.crt --key=/etc/kubernetes/pki/ca.key -n kube-system
+helm del --purge kubernetes-dashboard
+cat &lt;&lt;EOF &gt; kubernetes-dashboard.yaml
+ingress:
+  enabled: true
+  hosts:
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: &quot;true&quot;
+    nginx.ingress.kubernetes.io/secure-backends: &quot;true&quot;
+  tls:
+    - secretName: frognew-com-tls-secret
+      hosts:
+rbac:
+  clusterAdminRole: true
+EOF
+
+helm install ./charts/stable/kubernetes-dashboard \
+-n kubernetes-dashboard \
+--namespace kube-system  \
+-f kubernetes-dashboard.yaml
+
+</code></pre><h2 id="charts-">创建私有charts 仓库</h2>
+<pre><code>yum install supervisor -y
+
+cat  &lt;&lt;EOF&gt; /etc/supervisord.d/helm-server.ini
+[program:helm]
+command = helm serve --address 0.0.0.0:8881 --repo-path /data/loca-char-repo
+autostart = true
+autorestart = true
+user = root
+startretries = 3
+stdout_logfile_maxbytes = 20MB
+stdout_logfile_maxbytes = 10
+stdout_logfile = /var/log/helm.log
+EOF
+
+systemctl restart supervisord
+
+mkdir -p /data/loca-char-repo
+
+</code></pre><h2 id="helm-">在私有helm 仓库添加应用</h2>
+<pre><code>cd /data/loca-char-repo
+helm create myapp
+helm lint ./myapp
+helm package myapp/
+helm repo index myapp --url=http://xxxxx:8881 .
+
+## 官方示例git clone https://github.com/XishengCai/charts.git
+</code></pre><h2 id="helm--1">helm 通过私有仓库创建应用</h2>
+<pre><code>helm repo add local-repo http://xxxx:8881
+helm update
+helm search redis
+helm install local-repo/myapp
+</code></pre><h2 id="template-key">template key</h2>
+<pre><code>tpl
+dir
+template
+indent    # 左边空格
+
+helm模板语法嵌套在{{和}}之间，有三个常见的 
+.Values.* 
+从value.yaml文件中读取 
+.Release.* 
+从运行Release的元数据读取 
+.Template.* 
+.Chart.* 
+从Chart.yaml文件中读取 
+.Files.* 
+.Capabilities.*
+</code></pre>
+<h3 id="helmk8syaml">获取helm渲染后的k8s可执行的yaml文件（只渲染不运行）。</h3>
+<pre><code>helm install --debug --dry-run ./mychart
+
+.Values.*的值可以来自以下 
++ values.yaml文件 
++ 如果是子chart，值来自父chart的values.yaml 
++ 通过helm install -f标志的文件 
++ 来自–set中的配置
+
+顺序查找，下面找到的覆盖上面找到的值。
+</code></pre>
+<h3 id="heading-2">模板函数</h3>
+<p>quote</p>
+<blockquote>
+<p>最常用的模板函数，它能把ABC转化为“ABC”。它带一个参数</p>
+</blockquote>
+<pre><code>{{ quote .Values.favorite.drink }}
+</code></pre><p>&ldquo;|&rdquo;</p>
+<blockquote>
+<p>管道，类似linux下的管道。</p>
+</blockquote>
+<pre><code>{{ quote .Values.favorite.drink }} 与 {{ .Values.favorite.drink | quote }} 效果一样。
+</code></pre><p>default 模板函数</p>
+<blockquote>
+<p>制定默认值</p>
+</blockquote>
+<pre><code>drink: {{ .Values.favorite.drink | default “tea” | quote }} 
+</code></pre><p><em>如果在values中无法找到favorite.drink，则配置为“tea”。</em></p>
+<p>indent 模板函数</p>
+<blockquote>
+<p>对左空出空格</p>
+</blockquote>
+<pre><code>data:
+  myvalue: &quot;Hello World&quot;
+{{ include &quot;mychart_app&quot; . | indent 2 }}
+会使渲染后的取值于左边空出两个空格，以符合yaml语法。
+</code></pre><h3 id="heading-3">应用安装</h3>
+<h3 id="heading-4">应用检测</h3>
+<h3 id="heading-5">应用归档</h3>
+<h3 id="heading-6">应用依赖</h3>
+<h3 id="heading-7"></h3>
+<h3 id="link">link</h3>
+<ul>
+<li><a href="https://changbo.tech/blog/29dc945b.html">helm blog</a></li>
+<li><a href="https://github.com/helm/helm">helm github</a></li>
+<li><a href="https://blog.csdn.net/liukuan73/article/details/79319900">helm blog2</a></li>
+<li><a href="https://www.chengxulvtu.com/supervisor-on-centos-7/">supervisor install</a></li>
+</ul>
+<div class="edit-meta">
+Last updated on 4 Oct 2019
+
+
+<br>
+Published on 4 Oct 2019
+<br><a href="https://github.com/xishengcai/xisheng.blog.git/edit/master/content/post/kubernetes/helm.md" class="edit-page"><i class="fas fa-pen-square"></i> Edit on GitHub</a></div><nav class="pagination"><a class="nav nav-prev" href="/post/docker/install/" title="install docker"><i class="fas fa-arrow-left" aria-hidden="true"></i> Prev - install docker</a>
+
+</nav><footer><p class="powered">Powered by <a href="https://gohugo.io">Hugo</a>. Theme by <a href="https://themes.gohugo.io/hugo-theme-techdoc/">TechDoc</a>. Designed by <a href="https://github.com/thingsym/hugo-theme-techdoc">Thingsym</a>.</p>
+</footer>
+</main><div class="sidebar">
+
+<nav class="open-menu">
+<ul>
+<li class=""><a href="http://localhost:81">Home</a></li>
+
+
+</ul>
+</nav>
+
+
+
+<div class="sidebar-footer"></div>
+</div>
+</div><a href="#" id="backtothetop-fixed" class="backtothetop"
+ data-backtothetop-duration="600"
+ data-backtothetop-easing="easeOutQuart"
+ data-backtothetop-fixed-fadeIn="1000"
+ data-backtothetop-fixed-fadeOut="1000"
+ data-backtothetop-fixed-bottom="10"
+ data-backtothetop-fixed-right="20">
+<span class="fa-layers fa-fw">
+<i class="fas fa-circle"></i>
+<i class="fas fa-arrow-circle-up"></i>
+</span></a>
+</div>
+</body>
+</html>

@@ -1,7 +1,7 @@
 ---
 title: "Nginx"
 date: 2019-12-20T14:19:02+08:00
-draft: true
+draft: false
 ---
 
 ## install

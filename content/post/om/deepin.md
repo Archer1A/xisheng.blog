@@ -1,7 +1,7 @@
 ---
 title: "Deepin Create Icon"
 date: 2019-12-21T10:15:12+08:00
-draft: true
+draft: false
 ---
 
 ### install goland

@@ -1,7 +1,7 @@
 ---
 title: "cloud_provider"
 date: 2019-10-18T16:08:36+08:00
-draft: true
+draft: false
 ---
 
 [cloudprovider.Interface](https://github.com/kubernetes/kubernetes/blob/master/pkg/cloudprovider/cloud.go)

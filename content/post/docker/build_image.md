@@ -5,9 +5,20 @@ draft: true
 ---
 
 ## base image
-golang: alpine
+构建一个安装时区的基础镜像
 
-## time set
+golang: alpine
+```
+FROM alpine:latest
+
+MAINTAINER xishengcai <cc710917049@163.com>
+
+ENV TZ=Asia/Shanghai
+ENV ALPINE_VERSION=3.11.2
+
+RUN apk add tzdata zeromq
+
+```
 
 ## start cmd
 

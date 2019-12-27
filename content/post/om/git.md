@@ -1,7 +1,7 @@
 ---
 title: "Git"
 date: 2019-12-27T16:48:50+08:00
-draft: true
+draft: false
 ---
 
 ## 合并

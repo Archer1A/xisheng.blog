@@ -31,4 +31,4 @@ cni0 网桥
 
 3.host-gw
 
-[IPpub blog](http://blog.itpub.net/28218939/viewspace-2640884/)
+[IPpub blog](http://blog.itpub.net/28218939/viewspace-26exit40884/)

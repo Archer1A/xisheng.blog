@@ -1,4 +1,4 @@
-baseURL = "http://xisheng.vip"
+baseURL = "https://xisheng.vip"
 
 languageCode = "en-us"
 DefaultContentLanguage = "en"
@@ -63,10 +63,10 @@ enableMissingTranslationPlaceholders = false
 # Global menu section
 [[menu.main]]
     name = "Home"
-    url = "http://xisheng.vip"
+    url = "https://xisheng.vip"
     weight = 1
 
 [[menu.main]]
     name = "朗澈混合云"
-    url = "http://lcs.lstack.com.cn/"
+    url = "https://lcs.lstack.com.cn/"
     weight = 2

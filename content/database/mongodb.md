@@ -265,4 +265,5 @@ db.inventory.find( { status: "A" }, { item: 1, status: 1 } )
 ```
 
 [原文链接](https://blog.csdn.net/yaomingyang/article/details/78696759)
-[mongod doc](https://docs.mongodb.com/manual/reference/method/db.collection.aggregate/)
+[mongodb_doc](https://docs.mongodb.com/manual/reference/method/db.collection.aggregate/)
+[group_aggregate](https://segmentfault.com/a/1190000016629733)

@@ -80,7 +80,31 @@ terminal device.
 -z string length is zero.
 ```
  
-
-是用 -s 还是用 -f 这个区别是很大的！
+### shell 参数名解析
+```
+while [ $# -gt 0 ]
+do
+    key="$1"
+    case $key in
+        --image-name)
+            export IMAGE_NAME=$2
+            shift
+        ;;
+        --version)
+            export VERSION=$2
+            shift
+        ;;
+         --update-latest)
+            export UPDATE_LATEST=$2
+            shift
+        ;;
+        *)
+            echo "unknown option [$key]"
+            exit 1
+        ;;
+    esac
+    shift
+done
+```
 
 

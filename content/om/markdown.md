@@ -6,11 +6,10 @@ draft: false
 
 ### typora
 
-
 ### [online markdown](https://www.mdeditor.com/)
 
 ### link
-[sequence] (https://www.jianshu.com/p/70e329dd4a00)
+[sequence](https://www.jianshu.com/p/70e329dd4a00)
 
 
 

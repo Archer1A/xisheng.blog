@@ -36,6 +36,37 @@ decimal128。这使得应用程序更容易可靠地处理、排序和比较数�
 - A：一个BSON数组。
 - E：D里面的一个元素。
 
+
+### 实践出真理
+#### start one container and connect
+```
+docker run -d -p 27017:27017 -e MONGO_INITDB_ROOT_USERNAME=root -e MONGO_INITDB_ROOT_PASSWORD=123456 registry.cn-hangzhou.aliyuncs.com/launcher/mongo:4.2.1
+docker exec -it  $container_id sh
+#mongo 192.168.1.200:27017/test -u user -p password
+mongo -u root -p 123456
+```
+
+#### base operation
+```
+show dbs;
+use test;
+db.createCollection("hello");
+show collections;
+db.hello.insert({"name":"testdb"});
+db.hello.drop()
+```
+#### Index
+```
+在hello集合上，建立对ID字段的索引，1代表升序。
+>db.hello.ensureIndex({ID:1})
+在hello集合上，建立对ID字段、Name字段和Gender字段建立索引
+>db.hello.ensureIndex({ID:1,Name:1,Gender:-1})
+查看hello集合上的所有索引
+>db.hello.getIndexes()
+删除索引用db.collection.dropIndex()，有一个参数，可以是建立索引时指定的字段，也可以是getIndex看到的索引名称。
+>db.hello.dropIndex( "IDIdx" )
+>db.hello.dropIndex({ID:1})
+```
 ### 插入
 ```
 db.inventory.insertMany([
@@ -115,10 +146,15 @@ use the filter { <field>: <value> } where <value> is the element value.
 db.inventory.find( { tags: "red" } )
 ```
 ### 更新 
+syntax: db.collection.update(criteria, objNew, upsert, multi )
+> * criteria:update的查询条件，类似sql update查询内where后面的
+> * objNew:update的对象和一些更新的操作符（如$,$inc...）等，也可以理解为sql update查询内set后面的。
+> * upsert : 如果不存在update的记录，是否插入objNew,true为插入，默认是false，不插入。
+> * multi : mongodb默认是false,只更新找到的第一条记录，如果这个参数为true,就把按条件查出来多条记录全部更新。
 
 #### 匹配数组中单个字段
-> * 将第一个文档中grade字段中值为80更新为82，如果不知道数组中元素的位置，可以使用位置$操作符
-> * 请记住，位置$操作符充当更新文档查询中第一个匹配的占位符, 只修改匹配到的第一个。
+> * 将第一个文档中grade字段中值为85更新为1000，如果不知道数组中元素的位置，可以使用位置$操作符
+> * 请记住，位置$操作符充当更新文档查询中第一个匹配的占位符, 只修改匹配到的第一个，假设有2个85， 需要执行两次才能全部更新。
 
 ```
 db.collection.update(
@@ -128,11 +164,11 @@ db.collection.update(
 ```
 
 ```
-db.students.insert({_id:NumberInt(1),grades:[NumberInt(80),NumberInt(85),NumberInt(90)]})
-db.students.insert({_id:NumberInt(2),grades:[NumberInt(88),NumberInt(90),NumberInt(92)]})
-db.students.insert({_id:NumberInt(3),grades:[NumberInt(85),NumberInt(100),NumberInt(90)]})
+db.students.insert({_id:1,grades:[80,85,90]})
+db.students.insert({_id:2,grades:[88,90,92]})
+db.students.insert({_id:3,grades:[85,100,90,85]})
 
-db.students.update({_id:1, grades:80},{$set:{'grades.$':NumberInt(82)}})
+db.students.update({_id:3, grades:85},{$set:{'grades.$':1000}})
 ```
 
 #### 匹配数组中多个字段 

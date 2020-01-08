@@ -26,4 +26,4 @@ git rest --soft= ${commit_id}
 git gc  --prune=now
 
 ## 完全复制其他分支
-git reset origin/${other_branch}
+git reset --hard origin/${other_branch}

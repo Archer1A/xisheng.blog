@@ -19,6 +19,9 @@ Cloud Provider 的作用
 https://github.com/kubernetes/cloud-provider-alibaba-cloud/blob/b83e89ae7bbd482fbabac79d2704c1266092c0a9/docs/getting-started.md
 
 Update kubelet info with provider id info and restart kubelet:You should provide 
+
 --hostname-override=${REGION_ID}.${INSTANCE_ID}
- --provider-id=${REGION_ID}.${INSTANCE_ID} arguments in all of your kubelet unit file. 
- The format is ${REGION_ID}.${INSTANCE_ID}. See kubelet.service for more details.
+
+--provider-id=${REGION_ID}.${INSTANCE_ID} arguments in all of your kubelet unit file. 
+
+The format is ${REGION_ID}.${INSTANCE_ID}. See kubelet.service for more details.

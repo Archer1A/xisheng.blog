@@ -40,21 +40,21 @@ subjects:
 kubectl create -f tiller_rbac.yaml
 ```
 
-## 创建 tiller deployment
+### 创建 tiller deployment
 ```
 helm init --service-account tiller --skip-refresh -i registry.cn-hangzhou.aliyuncs.com/launcher/tiller:v2.15.0
 ```
 
 
-## 使用默认仓库创建应用
+### 使用默认仓库创建应用
 ```
 helm repo list
 helm search redis
 helm install stable/redis
 ```
-复杂点的
+
+### helm 部署 dashboard
 ```
-# 5.dashboard
 # 当使用Ingress将HTTPS的服务暴露到集群外部时，需要HTTPS证书，这里将*.frognew.com的证书和秘钥配置到Kubernetes中。
 # 后边部署在kube-system命名空间中的dashboard要使用这个证书，因此这里先在kube-system中创建证书的secret
 kubectl create secret tls frognew-com-tls-secret --cert=/etc/kubernetes/pki/ca.crt --key=/etc/kubernetes/pki/ca.key -n kube-system
@@ -81,7 +81,7 @@ helm install ./charts/stable/kubernetes-dashboard \
 ```
 
 
-## 创建私有charts 仓库
+### 创建私有charts 仓库
 
 ```
 yum install supervisor -y
@@ -104,20 +104,20 @@ mkdir -p /data/loca-char-repo
 
 ```
 
-## 在私有helm 仓库添加应用
+### 在私有helm 仓库添加应用
 ```
 cd /data/loca-char-repo
-helm create myapp
-helm lint ./myapp
-helm package myapp/
-helm repo index myapp --url=http://xxxxx:8881 .
+helm create myapp   # 创建一个应用的char包
+helm lint ./myapp   # 语法校验
+helm package myapp/   # 生成tar包
+helm repo index myapp --url=http://xxxxx:8881 
 
 ## 官方示例git clone https://github.com/XishengCai/charts.git
 ```
 
 
 
-## helm 通过私有仓库创建应用
+### helm 通过私有仓库创建应用
 ```
 helm repo add local-repo http://xxxx:8881
 helm update
@@ -125,7 +125,7 @@ helm search redis
 helm install local-repo/myapp
 ```
 
-## template key
+### template key
     tpl
     dir
     template
@@ -149,7 +149,7 @@ helm install local-repo/myapp
     + values.yaml文件 
     + 如果是子chart，值来自父chart的values.yaml 
     + 通过helm install -f标志的文件 
-    + 来自–set中的配置
+    + 来自–-set中的配置
     
     顺序查找，下面找到的覆盖上面找到的值。
     
@@ -182,15 +182,26 @@ data:
 {{ include "mychart_app" . | indent 2 }}
 会使渲染后的取值于左边空出两个空格，以符合yaml语法。
 ```
-### 应用安装
 
-### 应用检测
+overwrite map
+> --set service.type=NodePort
 
-### 应用归档
+overwrite string
+> --set image=.....
 
-### 应用依赖
+overwrite array
+> --set aaa[0].name=.. aaa[0].value=....
 
-### 
+### helm 模板名词解释
+#### Release.Name
+Create a default fully qualified app name.
+We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
+If release name contains chart name it will be used as a full name.
+
+#### full name
+
+#### name
+
 
 
 ### link

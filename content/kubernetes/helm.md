@@ -154,28 +154,24 @@ helm install local-repo/myapp
     顺序查找，下面找到的覆盖上面找到的值。
     
 ### 模板函数
-quote
->最常用的模板函数，它能把ABC转化为“ABC”。它带一个参数 
+>quote: 最常用的模板函数，它能把ABC转化为“ABC”。它带一个参数 
 ```
 {{ quote .Values.favorite.drink }}
 ```
 
-"|" 
->管道，类似linux下的管道。
+> "|":  管道，类似linux下的管道。
 ```
 {{ quote .Values.favorite.drink }} 与 {{ .Values.favorite.drink | quote }} 效果一样。
 ``` 
 
-default 模板函数 
->制定默认值 
+>default: use default value .
+如果在values中无法找到favorite.drink，则配置为“tea”。*
 ```
 drink: {{ .Values.favorite.drink | default “tea” | quote }} 
 ```
 
-*如果在values中无法找到favorite.drink，则配置为“tea”。*
-
-indent 模板函数 
->对左空出空格 
+>indent: 对左空出空格 
+ 
 ```
 data:
   myvalue: "Hello World"
@@ -183,14 +179,19 @@ data:
 会使渲染后的取值于左边空出两个空格，以符合yaml语法。
 ```
 
-overwrite map
-> --set service.type=NodePort
+> overwrite map
 
-overwrite string
-> --set image=.....
+    --set service.type=NodePort
 
-overwrite array
-> --set aaa[0].name=.. aaa[0].value=....
+> overwrite string
+
+    --set image=.....
+
+> overwrite array
+
+    --set aaa[0].name=.. aaa[0].value=....
+
+
 
 ### helm 模板名词解释
 #### Release.Name

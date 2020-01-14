@@ -1,5 +1,5 @@
 ---
-title: "Crd"
+title: "kubernetes controller"
 date: 2019-12-25T09:05:09+08:00
 draft: false
 ---

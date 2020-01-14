@@ -68,5 +68,10 @@ enableMissingTranslationPlaceholders = false
 
 [[menu.main]]
     name = "朗澈混合云"
-    url = "https://lcs.lstack.com.cn/"
+    url = "http://lcs.lstack.com.cn/"
+    weight = 2
+
+[[menu.main]]
+    name = "我的博客园"
+    url = "https://www.cnblogs.com/waken-captain/"
     weight = 2

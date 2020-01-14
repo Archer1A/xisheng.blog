@@ -28,7 +28,7 @@ make 只能用于 slice,map,channel 三种类型, 并且只能是这三种对象
 - make(T) 返回的初始化的 T,只能用于 slice,map,channel,要获得一个显式的指针，使用new进行分配，或者显式地使用一个变量的地址.
 - new 函数分配内存,make函数初始化；
 
-![image](../../static/images/make_and_new.png)
+![image](http://xisheng.vip/images/make_and_new.png)
 
 ```go
 package main

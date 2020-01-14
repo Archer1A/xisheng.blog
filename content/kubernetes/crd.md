@@ -56,8 +56,10 @@ spec:
     
 
 ### 4 Write your customer controller
-![client-go](../../static/images/clinet-go.jpg)
+![client-go](http://xisheng.vip/images/clinet-go.jpg)
 注意: 这张图分为两部分,黄色图标是开发者需要自行开发的部分，而其它的部分是client-go已经提供的，直接使用即可。
+
+
 1. 通过controller中的Reflector来实现监听，它通过kubernetes的List/Watch机制将得到事件(Object)写入到Stroe(Delta FIFO)中，
 后续会基于该Delta FIFO实现完全按事件发生的顺序进行分发处理。
 

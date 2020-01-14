@@ -84,8 +84,8 @@ resource_name去调用Lister从indexer中获取该key对应的相应的元数据
 download code generate
 ```gitexclude
 cd $GOPATH/src
-mkdir k8s.io && cd k8s.io
-git clone https://blog.openshift.com/kubernetes-deep-dive-code-generation-customresources/
+mkdir -p k8s.io && cd k8s.io
+git clone https://github.com/kubernetes/code-generator.git
 ```
 
 download one template

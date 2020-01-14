@@ -5,6 +5,7 @@ draft: false
 ---
 
 - [原文 Kubernetes Client-Go Informer 实现源码剖析](https://xigang.github.io/2019/09/21/client-go/)
+- [自己构建一个 k8s sample-controller.](https://www.cnblogs.com/maoqide/p/11254937.html)
 - [Kubernetes Deep Dive: Code Generation for CustomResources](https://blog.openshift.com/kubernetes-deep-dive-code-generation-customresources/)
 - [深入浅出kubernetes之client-go的SharedInformerFactory](https://blog.csdn.net/weixin_42663840/article/details/81980022)
 - [kubernetes.io/crd](https://kubernetes.io/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions/)
@@ -79,6 +80,344 @@ resource_name去调用Lister从indexer中获取该key对应的相应的元数据
 
 上面就是开发者想要写一个controller(或者有的人也叫operator)的一个整体的流程。
 
+#### 4.1 prepare work
+download code generate
+```gitexclude
+cd $GOPATH/src
+mkdir k8s.io && cd k8s.io
+git clone https://blog.openshift.com/kubernetes-deep-dive-code-generation-customresources/
+```
+
+download one template
+```gitexclude
+git clone https://github.com/xishengcai/example-controller.git
+```
+
+file struct
+```
+[root@cn-hongkong example-controller]# tree
+.
+├── hack
+│   ├── boilerplate.go.txt
+│   ├── update-codegen.sh
+│   └── verify-codegen.sh
+└── pkg
+    └── apis
+        └── examplecontroller
+            ├── register.go
+            └── v1
+                ├── doc.go
+                ├── register.go
+                └── types.go
+
+```
+修改模板中的 group, version, object type， 然后使用脚本自动生成代码
+```shell script
+./hack/update-codegen.sh
+```
+自动生成了 clientset，informers，listers 三个文件夹下的文件和apis下的zz_generated.deepcopy.go文件。
+
+其中zz_generated.deepcopy.go中包含 pkg/apis/samplecontroller/v1alpha1/types.go 中定义的结构体的 DeepCopy() 方法。
+
+另外三个文件夹clientset，informers，listers下都是 Kubernetes 生成的客户端库，在 controller 中会用到。
+
+```
+[root@cn-hongkong example-controller]# ./hack/update-codegen.sh
+Generating deepcopy funcs
+Generating clientset for examplecontroller:v1 at k8s.io/example-controller/pkg/generated/clientset
+Generating listers for examplecontroller:v1 at k8s.io/example-controller/pkg/generated/listers
+Generating informers for examplecontroller:v1 at k8s.io/example-controller/pkg/generated/informers
+```
+
+file struct
+```
+[root@cn-hongkong example-controller]# tree
+.
+├── hack
+│   ├── boilerplate.go.txt
+│   ├── update-codegen.sh
+│   └── verify-codegen.sh
+└── pkg
+    ├── apis
+    │   └── examplecontroller
+    │       ├── register.go
+    │       └── v1
+    │           ├── doc.go
+    │           ├── register.go
+    │           ├── types.go
+    │           └── zz_generated.deepcopy.go
+    └── generated
+        ├── clientset
+        │   └── versioned
+        │       ├── clientset.go
+        │       ├── doc.go
+        │       ├── fake
+        │       │   ├── clientset_generated.go
+        │       │   ├── doc.go
+        │       │   └── register.go
+        │       ├── scheme
+        │       │   ├── doc.go
+        │       │   └── register.go
+        │       └── typed
+        │           └── examplecontroller
+        │               └── v1
+        │                   ├── clustertesttype.go
+        │                   ├── doc.go
+        │                   ├── examplecontroller_client.go
+        │                   ├── fake
+        │                   │   ├── doc.go
+        │                   │   ├── fake_clustertesttype.go
+        │                   │   ├── fake_examplecontroller_client.go
+        │                   │   └── fake_testtype.go
+        │                   ├── generated_expansion.go
+        │                   └── testtype.go
+        ├── informers
+        │   └── externalversions
+        │       ├── examplecontroller
+        │       │   ├── interface.go
+        │       │   └── v1
+        │       │       ├── clustertesttype.go
+        │       │       ├── interface.go
+        │       │       └── testtype.go
+        │       ├── factory.go
+        │       ├── generic.go
+        │       └── internalinterfaces
+        │           └── factory_interfaces.go
+        └── listers
+            └── examplecontroller
+                └── v1
+                    ├── clustertesttype.go
+                    ├── expansion_generated.go
+                    └── testtype.go
+
+```
+
+具体的controller 编写可以参考 https://github.com/kubernetes/sample-controller/blob/master/controller.go 
+```go
+//main.go
+    // 创建k8s原生资源的client
+	kubeClient, err := kubernetes.NewForConfig(cfg)
+	if err != nil {
+		klog.Fatalf("Error building kubernetes clientset: %s", err.Error())
+	}
+
+    // 创建自定义资源的client
+	exampleClient, err := clientset.NewForConfig(cfg)
+	if err != nil {
+		klog.Fatalf("Error building example clientset: %s", err.Error())
+	}
+    
+    // 生成informerFactrory
+	kubeInformerFactory := kubeinformers.NewSharedInformerFactory(kubeClient, time.Second*30)
+	exampleInformerFactory := informers.NewSharedInformerFactory(exampleClient, time.Second*30)
+	
+	controller := NewController(kubeClient, exampleClient,
+		kubeInformerFactory.Apps().V1().Deployments(),
+		exampleInformerFactory.Samplecontroller().V1alpha1().Foos())
+    
+    // 运行 Informer，Start 方法为非阻塞，会运行在单独的 goroutine 中
+	kubeInformerFactory.Start(stopCh)
+	exampleInformerFactory.Start(stopCh)
+
+    // 多线程运行controller
+	if err = controller.Run(2, stopCh); err != nil {
+		klog.Fatalf("Error running controller: %s", err.Error())
+	}
+
+//controller.go
+// Controller is the controller implementation for Foo resources
+// NewController returns a new sample controller
+func NewController(
+	// 将 CRD 资源类型定义加入到 Kubernetes 的 Scheme 中，以便 Events 可以记录 CRD 的事件
+	utilruntime.Must(samplescheme.AddToScheme(scheme.Scheme))
+	eventBroadcaster.StartRecordingToSink(&typedcorev1.EventSinkImpl{Interface: kubeclientset.CoreV1().Events("")})
+	 // 监听 CRD 类型'Foo'并注册 ResourceEventHandler 方法，当'Foo'的实例变化时进行处理
+	fooInformer.Informer().AddEventHandler(cache.ResourceEventHandlerFuncs{
+		AddFunc: controller.enqueueFoo,
+		UpdateFunc: func(old, new interface{}) {
+			controller.enqueueFoo(new)
+		},
+	})
+	
+    // 监听 Deployment 变化并注册 ResourceEventHandler 方法，
+    // 当它的 ownerReferences 为 Foo 类型实例时，将该 Foo 资源加入 work queue
+    deploymentInformer.Informer().AddEventHandler(cache.ResourceEventHandlerFuncs{
+		AddFunc: controller.handleObject,
+		UpdateFunc: func(old, new interface{}) {
+			newDepl := new.(*appsv1.Deployment)
+			oldDepl := old.(*appsv1.Deployment)
+			if newDepl.ResourceVersion == oldDepl.ResourceVersion {
+				return
+			}
+			controller.handleObject(new)
+		},
+		DeleteFunc: controller.handleObject,
+	})
+
+	return controller
+}
+
+
+func (c *Controller) Run(threadiness int, stopCh <-chan struct{}) error {
+	defer utilruntime.HandleCrash()
+	defer c.workqueue.ShutDown()
+	
+    // 在启动 worker 前等待缓存同步
+	if ok := cache.WaitForCacheSync(stopCh, c.deploymentsSynced, c.foosSynced); !ok {
+		return fmt.Errorf("failed to wait for caches to sync")
+	}
+	
+    // 运行两个 worker 来处理资源
+	for i := 0; i < threadiness; i++ {
+		go wait.Until(c.runWorker, time.Second, stopCh)
+	}
+	<-stopCh
+	return nil
+}
+
+func (c *Controller) runWorker() {
+    // 无限循环，不断的调用 processNextWorkItem 处理下一个对象
+	for c.processNextWorkItem() {
+	}
+}
+
+func (c *Controller) processNextWorkItem() bool {
+	obj, shutdown := c.workqueue.Get()
+
+	if shutdown {
+		return false
+	}
+
+	err := func(obj interface{}) error {
+	    // 调用 workqueue.Done(obj) 方法告诉 workqueue 当前项已经处理完毕，
+		defer c.workqueue.Done(obj)
+		var key string
+		var ok bool
+		if key, ok = obj.(string); !ok {
+			// 无效的项调用Forget方法，避免重新入队。
+			c.workqueue.Forget(obj)
+			utilruntime.HandleError(fmt.Errorf("expected string in workqueue but got %#v", obj))
+			return nil
+		}
+		if err := c.syncHandler(key); err != nil {
+			// 放回workqueue避免偶发的异常
+			c.workqueue.AddRateLimited(key)
+			return fmt.Errorf("error syncing '%s': %s, requeuing", key, err.Error())
+		}
+		c.workqueue.Forget(obj)
+		klog.Infof("Successfully synced '%s'", key)
+		return nil
+	}(obj)
+
+	if err != nil {
+		utilruntime.HandleError(err)
+		return true
+	}
+
+	return true
+}
+
+// 实现fool的副本数和期望值一致
+func (c *Controller) syncHandler(key string) error {
+	namespace, name, err := cache.SplitMetaNamespaceKey(key)
+	if err != nil {
+		utilruntime.HandleError(fmt.Errorf("invalid resource key: %s", key))
+		return nil
+	}
+
+	foo, err := c.foosLister.Foos(namespace).Get(name)
+	if err != nil {
+		if errors.IsNotFound(err) {
+			utilruntime.HandleError(fmt.Errorf("foo '%s' in work queue no longer exists", key))
+			return nil
+		}
+
+		return err
+	}
+
+	deploymentName := foo.Spec.DeploymentName
+	if deploymentName == "" {
+		utilruntime.HandleError(fmt.Errorf("%s: deployment name must be specified", key))
+		return nil
+	}
+
+	deployment, err := c.deploymentsLister.Deployments(foo.Namespace).Get(deploymentName)
+	if errors.IsNotFound(err) {
+		deployment, err = c.kubeclientset.AppsV1().Deployments(foo.Namespace).Create(newDeployment(foo))
+	}
+    //...
+
+	if !metav1.IsControlledBy(deployment, foo) {
+		msg := fmt.Sprintf(MessageResourceExists, deployment.Name)
+		c.recorder.Event(foo, corev1.EventTypeWarning, ErrResourceExists, msg)
+		return fmt.Errorf(msg)
+	}
+
+	if foo.Spec.Replicas != nil && *foo.Spec.Replicas != *deployment.Spec.Replicas {
+		klog.V(4).Infof("Foo %s replicas: %d, deployment replicas: %d", name, *foo.Spec.Replicas, *deployment.Spec.Replicas)
+		deployment, err = c.kubeclientset.AppsV1().Deployments(foo.Namespace).Update(newDeployment(foo))
+	}
+    
+	err = c.updateFooStatus(foo, deployment)
+    //....
+	c.recorder.Event(foo, corev1.EventTypeNormal, SuccessSynced, MessageResourceSynced)
+	return nil
+}
+
+func (c *Controller) updateFooStatus(foo *samplev1alpha1.Foo, deployment *appsv1.Deployment) error {
+	fooCopy := foo.DeepCopy()
+	fooCopy.Status.AvailableReplicas = deployment.Status.AvailableReplicas
+	_, err := c.sampleclientset.SamplecontrollerV1alpha1().Foos(foo.Namespace).Update(fooCopy)
+	return err
+}
+
+func (c *Controller) enqueueFoo(obj interface{}) {
+	var key string
+	var err error
+	if key, err = cache.MetaNamespaceKeyFunc(obj); err != nil {
+		utilruntime.HandleError(err)
+		return
+	}
+	c.workqueue.Add(key)
+}
+
+func (c *Controller) handleObject(obj interface{}) {
+	var object metav1.Object
+	var ok bool
+	if object, ok = obj.(metav1.Object); !ok {
+		tombstone, ok := obj.(cache.DeletedFinalStateUnknown)
+		if !ok {
+			utilruntime.HandleError(fmt.Errorf("error decoding object, invalid type"))
+			return
+		}
+		object, ok = tombstone.Obj.(metav1.Object)
+		if !ok {
+			utilruntime.HandleError(fmt.Errorf("error decoding object tombstone, invalid type"))
+			return
+		}
+		klog.V(4).Infof("Recovered deleted object '%s' from tombstone", object.GetName())
+	}
+	klog.V(4).Infof("Processing object: %s", object.GetName())
+	if ownerRef := metav1.GetControllerOf(object); ownerRef != nil {
+		// If this object is not owned by a Foo, we should not do anything more
+		// with it.
+		if ownerRef.Kind != "Foo" {
+			return
+		}
+
+		foo, err := c.foosLister.Foos(object.GetNamespace()).Get(ownerRef.Name)
+		if err != nil {
+			klog.V(4).Infof("ignoring orphaned object '%s' of foo '%s'", object.GetSelfLink(), ownerRef.Name)
+			return
+		}
+
+		c.enqueueFoo(foo)
+		return
+	}
+}
+
+// .....
+```
 --- 以下是源码分析[原文 Kubernetes Client-Go Informer 实现源码剖析](https://xigang.github.io/2019/09/21/client-go/)-----
 ### 5. informer 
 ![all-informer](http://xisheng.vip/images/all-informer.png)
@@ -86,10 +425,54 @@ resource_name去调用Lister从indexer中获取该key对应的相应的元数据
 SharedInformerFactory为kubernetes中的所有资源(API group versions)提供了一个shared informer。所以controller中使用的所有Informer都是
 从SharedInformerFactory中通过GroupVersionResource得到.
 
-    SharedInformerFactory
-        Events
-            EventInformer
-            
+SharedInformerFactory的声明结构:
+
+```go
+type SharedInformerFactory interface {
+	internalinterfaces.SharedInformerFactory
+	ForResource(resource schema.GroupVersionResource) (GenericInformer, error)
+	WaitForCacheSync(stopCh <-chan struct{}) map[reflect.Type]bool
+
+	Admissionregistration() admissionregistration.Interface
+	Apps() apps.Interface
+	Auditregistration() auditregistration.Interface
+	Autoscaling() autoscaling.Interface
+	Batch() batch.Interface
+	Certificates() certificates.Interface
+	Coordination() coordination.Interface
+	Core() core.Interface
+	Events() events.Interface
+	Extensions() extensions.Interface
+	Networking() networking.Interface
+	Policy() policy.Interface
+	Rbac() rbac.Interface
+	Scheduling() scheduling.Interface
+	Settings() settings.Interface
+	Storage() storage.Interface
+}
+```
+
+Events的声明结构:
+
+```go
+// Interface provides access to all the informers in this group version.
+type Interface interface {
+	// Events returns a EventInformer.
+	Events() EventInformer
+}
+```
+
+EventInformer的声明结构:
+
+```go
+// EventInformer provides access to a shared informer and lister for
+// Events.
+type EventInformer interface {
+	Informer() cache.SharedIndexInformer
+	Lister() v1beta1.EventLister
+}
+```      
+
 这样如果我们想使用EventInformer,那么我们就直接在SharedInformerFactory中获取我们需要的Informer即可。
 只需要执行下面的两行代码:
 ```go

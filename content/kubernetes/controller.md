@@ -80,7 +80,7 @@ resource_name去调用Lister从indexer中获取该key对应的相应的元数据
 
 上面就是开发者想要写一个controller(或者有的人也叫operator)的一个整体的流程。
 
-#### 4.1 prepare work
+#### 4.1 动手实践
 download code generate
 ```gitexclude
 cd $GOPATH/src
@@ -90,6 +90,7 @@ git clone https://blog.openshift.com/kubernetes-deep-dive-code-generation-custom
 
 download one template
 ```gitexclude
+cd $GOPATH/src/k8s.io
 git clone https://github.com/xishengcai/example-controller.git
 ```
 
@@ -191,6 +192,7 @@ file struct
                     └── testtype.go
 
 ```
+
 
 具体的controller 编写可以参考 https://github.com/kubernetes/sample-controller/blob/master/controller.go 
 ```go

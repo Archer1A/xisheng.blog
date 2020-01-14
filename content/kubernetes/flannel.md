@@ -1,7 +1,7 @@
 ---
-title: "Network Policy"
+title: "Network"
 date: 2019-12-11T22:50:21+08:00
-draft: false
+draft: true
 ---
 
 ### node 间的网络访问
@@ -31,4 +31,3 @@ draft: false
 
 #### 3.host-gw
 
-[IPpub blog](http://blog.itpub.net/28218939/viewspace-26exit40884/)

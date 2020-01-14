@@ -81,6 +81,7 @@ resource_name去调用Lister从indexer中获取该key对应的相应的元数据
 
 --- 以下是源码分析[原文 Kubernetes Client-Go Informer 实现源码剖析](https://xigang.github.io/2019/09/21/client-go/)-----
 ### 5. informer 
+![all-informer](http://xisheng.vip/images/all-informer.png)
 #### 5.1 Use SharedInformerFactory Create EventInformer
 SharedInformerFactory为kubernetes中的所有资源(API group versions)提供了一个shared informer。所以controller中使用的所有Informer都是
 从SharedInformerFactory中通过GroupVersionResource得到.

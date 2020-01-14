@@ -13,9 +13,11 @@ draft: false
 CustomResourceDefinition 是kubernetes的资源扩展方式
 
 ### 2.sample-controller 
-sample-controller 是 kubernetes 官方提供的 CRD Controller 样例实现，<br>
-Git 地址：https://github.com/kubernetes/sample-controller<br>
-添加自定义控制器 Bar 示例代码：https://github.com/SataQiu/sample-controller/tree/bar<br>
+sample-controller 是 kubernetes 官方提供的 CRD Controller 样例实现
+
+[sample-controller](https://github.com/kubernetes/sample-controller)
+
+[添加自定义控制器 Bar 示例代码](https://github.com/SataQiu/sample-controller/tree/bar)
 
 ### 3.[使用client-go包访问Kubernetes CRD](https://aijishu.com/a/1060000000011204)
 #### 3.1 create CRD
@@ -57,18 +59,17 @@ spec:
 
 ### 4 Write your customer controller
 ![client-go](http://xisheng.vip/images/clinet-go.jpg)
-注意: 这张图分为两部分,黄色图标是开发者需要自行开发的部分，而其它的部分是client-go已经提供的，直接使用即可。
 
+注意: 这张图分为两部分,黄色图标是开发者需要自行开发的部分，而其它的部分是client-go已经提供的，直接使用即可。
 
 1. 通过controller中的Reflector来实现监听，它通过kubernetes的List/Watch机制将得到事件(Object)写入到Stroe(Delta FIFO)中，
 后续会基于该Delta FIFO实现完全按事件发生的顺序进行分发处理。
 
-2.由Reflector生产的事件最终由processor消费。processor通过POP队列(Delta FIFO)里的事件，更新本地的informer indexer缓存，
+2. 由Reflector生产的事件最终由processor消费。processor通过POP队列(Delta FIFO)里的事件，更新本地的informer indexer缓存，
 同时将事件distribute给所有的listener。
 
-3.processer的listener由外部通过AddEventHandler注册，每个listener提供AddFunc, UpdateFunc, DeleteFunc方法。l
+3. processer的listener由外部通过AddEventHandler注册，每个listener提供AddFunc, UpdateFunc, DeleteFunc方法。l
 istener内部的实现加了一层缓存，用于存放pendingNotification。listener最终实现了事件的分发，事件最终被注册的handler处理。
-
 
 4. 注册的handler可以根据事件的类型ADD,UPDATE,DELETE，将该事件的key(格式: namespace/resource_name)Enqueue到client-go
 提供的Workqueue队列中。
@@ -78,8 +79,8 @@ resource_name去调用Lister从indexer中获取该key对应的相应的元数据
 
 上面就是开发者想要写一个controller(或者有的人也叫operator)的一个整体的流程。
 
-### 5. informer
-
+--- 以下是源码分析[原文 Kubernetes Client-Go Informer 实现源码剖析](https://xigang.github.io/2019/09/21/client-go/)-----
+### 5. informer 
 #### 5.1 Use SharedInformerFactory Create EventInformer
 SharedInformerFactory为kubernetes中的所有资源(API group versions)提供了一个shared informer。所以controller中使用的所有Informer都是
 从SharedInformerFactory中通过GroupVersionResource得到.

@@ -4,10 +4,10 @@ date: 2019-12-25T09:05:09+08:00
 draft: false
 ---
 
-[Kubernetes Deep Dive: Code Generation for CustomResources](https://blog.openshift.com/kubernetes-deep-dive-code-generation-customresources/)
-[Kubernetes Client-Go Informer 实现源码剖析](https://xigang.github.io/2019/09/21/client-go/)
-[深入浅出kubernetes之client-go的SharedInformerFactory](https://blog.csdn.net/weixin_42663840/article/details/81980022)
-[kubernetes.io/crd](https://kubernetes.io/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions/)
+- [原文 Kubernetes Client-Go Informer 实现源码剖析](https://xigang.github.io/2019/09/21/client-go/)
+- [Kubernetes Deep Dive: Code Generation for CustomResources](https://blog.openshift.com/kubernetes-deep-dive-code-generation-customresources/)
+- [深入浅出kubernetes之client-go的SharedInformerFactory](https://blog.csdn.net/weixin_42663840/article/details/81980022)
+- [kubernetes.io/crd](https://kubernetes.io/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions/)
 
 ### 1.CRD
 CustomResourceDefinition 是kubernetes的资源扩展方式
@@ -19,7 +19,7 @@ Git 地址：https://github.com/kubernetes/sample-controller<br>
 
 ### 3.[使用client-go包访问Kubernetes CRD](https://aijishu.com/a/1060000000011204)
 #### 3.1 create CRD
-```
+```yaml
 apiVersion: "apiextensions.k8s.io/v1beta1"
 kind: "CustomResourceDefinition"
 metadata:
@@ -886,10 +886,3 @@ func (p *processorListener) run() {
 
 这样就对Store中的事件数据进行了分发，如果开发者想要实现自己的custom controller的话，可以在分发之后，
 将分发后的数据写入到client-go提供的Workqueue队列中，并在自己实现的syncHandler实现逻辑中不断的中Workqueue中去获取key,然后去实现自己的逻辑。
-
-### 6. workqueue
-workqueue is a rate limited work queue. This is used to queue work to be
-processed instead of performing it as soon as a change happens. This
-means we can ensure we only process a fixed amount of resources at a
-time, and makes it easy to ensure we are never processing the same item simultaneously 
-in two different workers. workqueue workqueue.RateLimitingInterface

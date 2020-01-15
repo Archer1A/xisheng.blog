@@ -9,6 +9,7 @@ draft: false
 - [Kubernetes Deep Dive: Code Generation for CustomResources](https://blog.openshift.com/kubernetes-deep-dive-code-generation-customresources/)
 - [深入浅出kubernetes之client-go的SharedInformerFactory](https://blog.csdn.net/weixin_42663840/article/details/81980022)
 - [kubernetes.io/crd](https://kubernetes.io/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions/)
+- [controller 关键名词解释](https://github.com/kubernetes/sample-controller/blob/master/docs/controller-client-go.md)
 
 ### 1.CRD
 CustomResourceDefinition 是kubernetes的资源扩展方式
@@ -17,8 +18,6 @@ CustomResourceDefinition 是kubernetes的资源扩展方式
 sample-controller 是 kubernetes 官方提供的 CRD Controller 样例实现
 
 [sample-controller](https://github.com/kubernetes/sample-controller)
-
-[添加自定义控制器 Bar 示例代码](https://github.com/SataQiu/sample-controller/tree/bar)
 
 ### 3.[使用client-go包访问Kubernetes CRD](https://aijishu.com/a/1060000000011204)
 #### 3.1 create CRD

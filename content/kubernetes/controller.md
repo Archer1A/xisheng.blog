@@ -427,6 +427,8 @@ func (c *Controller) handleObject(obj interface{}) {
 SharedInformerFactory为kubernetes中的所有资源(API group versions)提供了一个shared informer。所以controller中使用的所有Informer都是
 从SharedInformerFactory中通过GroupVersionResource得到.
 
+kubernetes 一共15个informer
+
 SharedInformerFactory的声明结构:
 
 ```go

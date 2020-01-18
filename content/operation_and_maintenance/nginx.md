@@ -54,29 +54,17 @@ yum install nginx
 
 
 ### tls 
-> 生成秘钥key
-```
-openssl genrsa -des3 -out server.key 2048
-```
-
->去除输入密码
-```
-openssl rsa -in server.key -out server.key
+create CA
+```shell script
+openssl genrsa -out rootCA.key 2048
+openssl req -x509 -new -nodes -key rootCA.key -days 1024 -out rootCA.pem
 ```
 
->创建服务器证书的申请文件server.csr,运行
-```
+create crt
+```shell script
+openssl genrsa -out server.key 2048
 openssl req -new -key server.key -out server.csr
-```
-
->创建CA证书
-```
-openssl req -new -x509 -key server.key -out ca.crt -days 3650
-```
-
->服务器证书server.crt
-```
-openssl x509 -req -days 3650 -in server.csr -CA ca.crt -CAkey server.key -CAcreateserial -out server.crt
+openssl x509 -req -in server.csr -CA rootCA.pem -CAkey rootCA.key -CAcreateserial -out server.crt -days 500
 ```
 
 [nginx blog](https://juejin.im/post/5aa7704c6fb9a028bb18a993)

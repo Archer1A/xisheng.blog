@@ -1,7 +1,7 @@
 ---
 title: "Go_mod"
 date: 2019-12-30T09:06:27+08:00
-draft: true
+draft: false
 ---
 ## 1. what
 Go modules是官方推出推荐的GOPATH的一个替代方案，同时集成了对版本控制和包分发的支持。
@@ -30,5 +30,9 @@ export GOPROXY=https://goproxy.cn
 go mod init
 ```
 
-## 3. 同时使用go vender and go module
+2.3 vendor
+将 go.mod 中的所有依赖下载到vendor包下
+```
+go mod vendor
+```
 

@@ -1,7 +1,7 @@
 ---
-title: "泊松分布公式推到"
+title: "泊松分布公式推导"
 date: 2020-2-16 T16:08:36+08:00
-draft: false
+draft: true
 ---
 
 [原文](https://zhuanlan.zhihu.com/p/26263743)

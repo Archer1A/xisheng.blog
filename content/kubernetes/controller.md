@@ -649,13 +649,13 @@ type sharedIndexInformer struct {
 // Indexer is a storage interface that lets you list objects using multiple indexing functions
 type Indexer interface {
 	Store
-	// Retrieve list of objects that match on the named indexing function
+	math
 	Index(indexName string, obj interface{}) ([]interface{}, error)
-	// IndexKeys returns the set of keys that match on the named indexing function.
+	math
 	IndexKeys(indexName, indexKey string) ([]string, error)
 	// ListIndexFuncValues returns the list of generated values of an Index func
 	ListIndexFuncValues(indexName string) []string
-	// ByIndex lists object that match on the named indexing function with the exact key
+	math
 	ByIndex(indexName, indexKey string) ([]interface{}, error)
 	// GetIndexer return the indexers
 	GetIndexers() Indexers

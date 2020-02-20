@@ -1,7 +1,7 @@
 ---
 title: "闭包"
-date: 2020-01-02T14:52:27+08:00
-draft: true
+date: 2020-02-20 T14:52:27+08:00
+draft: false
 ---
 
 [source doc](https://www.cnblogs.com/jiajialove/p/9049612.html)

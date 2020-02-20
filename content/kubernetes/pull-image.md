@@ -22,19 +22,19 @@ View $HOME/.docker/config.json in an editor to ensure it contains just the crede
 Get a list of your nodes, for example:
 
 if you want the names: 
-```
+```shell
 nodes=$(kubectl get nodes -o jsonpath='{range.items[*].metadata}{.name} {end}')
 ```
 
 
 if you want to get the IPs:
-```
+```shell
 nodes=$(kubectl get nodes -o jsonpath='{range .items[*].status.addresses[?(@.type=="ExternalIP")]}{.address} {end}')
 ```
 
 Copy your local .docker/config.json to one of the search paths list above.
 
 for example: 
-```
+```shell
 for n in $nodes; do scp ~/.docker/config.json root@$n:/var/lib/kubelet/config.json; done
 ```

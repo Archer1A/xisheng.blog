@@ -1,5 +1,5 @@
 ---
-title: "every nodes pull image from private registries but not set secret in kubernetes"
+title: "pull image from private registries"
 date: 2020-2-20T16:08:36+08:00
 draft: false
 ---

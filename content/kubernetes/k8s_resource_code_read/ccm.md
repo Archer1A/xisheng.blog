@@ -135,22 +135,19 @@ type PVLabeler interface {
 ### CCM　架构介绍
 ![client-go](http://xisheng.vip/images/ccm.png)
 
-node controller
+#### node controller
 使用 Cloud Provider 来检查 Node 是否已经在云上被删除了。如果 Cloud Provider 返回有 Node 被删除，那么 
 Node Controller 立马就会把此 Node 从 Kubernetes 中删除。
 
-service controller
+#### service controller
 负责为type: LoadBalancer的service 创建，删除，更新LB and EIP.
 
-route controller
+#### route controller
 配置node路由.kubernetes 网络的基本原则是每个pod都要有一个独立ip地址,而且假定所有的pod都在直接连通的扁平网络中.
 而云上node的基础设施是云服务商提供的,所以 Route Controller 需要调用 Cloud Provider 来配置云上的 Node 的底层路由.
 
-pvLabel controller
+#### pvLabel controller
 使用 Cloud Provider 来创建、删除、挂载、卸载 Node 上的卷，这是因为卷也是云厂商额外提供的云存储服务。
-
-### 
-
 
 ### CCM 源码分析
 本文的源码分析是以openstack为基础:https://github.com/kubernetes/cloud-provider-openstack:origin/release-1.17
@@ -158,7 +155,7 @@ kuberentes 1.17
 
 启动流程
 
-- 1.项目启动后先执行　所有init方法, 注册 getCloudProvider方法
+- 1.项目启动后，先执行所有init方法，注册 getCloudProvider方法
 
 /root/go/src/k8s.io/cloud-provider-openstack/pkg/cloudprovider/providers/openstack/openstack.go
     
@@ -236,9 +233,9 @@ kuberentes 1.17
 - 3.启动所有控制器, 开始监听资源变化
 k8s.io/kubernetes/cmd/cloud-controller-manager/app/controllermanager.go
 调用cloud-controller-manager的Run 方法, 组要完成如下工作:
-- 1.获取cloudProvider对象(就是已经实现了所有cloudprovider.Interface接口的对象)
-- 2.启动　node, route, service, pvLabel　控制器
-- 3.完成选主
+    - 1.获取cloudProvider对象(就是已经实现了所有cloudprovider.Interface接口的对象)
+    - 2.启动　node, route, service, pvLabel　控制器
+    - 3.完成选主
 
 ```go
 // Run runs the ExternalCMServer.  This should never exit.
@@ -276,7 +273,8 @@ func Run(c *cloudcontrollerconfig.CompletedConfig, stopCh <-chan struct{}) error
 ```
 
 /root/go/src/k8s.io/cloud-provider-openstack/cmd/openstack-cloud-controller-manager/main.go
-ccm 4个控制器注册代码
+
+ccm 4个控制器注册
 ```go
 // line 139
 // initFunc is used to launch a particular controller.  It may run additional "should I activate checks".
@@ -506,3 +504,102 @@ the cloud specific control loops shipped with Kubernetes.`,
 CCM注册, 见上文的启动流程中的注册代码
 
 CCM控制器注册,　见上文的
+
+### 部署
+#### 集群外部署
+```xshell
+export IDENTITY_ENDPOINT=https://iam.cn-east-3.myhuaweicloud.com/v3
+export PROJECT_ID=...
+export DOMAIN_ID=...
+export ACCESS_KEY_ID= ...
+export ACCESS_KEY_SECRET= ....
+export ROUTER_ID= ...
+export REGION= ...
+export SUBNET_ID= ...
+go run ./cmd/cloud-controller-manager.go --kubeconfig=./kube.config -v 4
+```
+
+#### 集群内部署
+RBAC, 这里为了方便好看直接用了超级权限
+```
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: cloud-controller-manager
+  namespace: kube-system
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: cloud-controller-manager
+  namespace: kube-system
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: cluster-admin
+subjects:
+  - kind: ServiceAccount
+    name: cloud-controller-manager
+    namespace: kube-system
+```
+
+DaemonSet
+```
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  labels:
+    k8s-app: cloud-controller-manager
+  name: cloud-controller-manager
+  namespace: kube-system
+spec:
+  selector:
+    matchLabels:
+      k8s-app: cloud-controller-manager
+  template:
+    metadata:
+      labels:
+        k8s-app: cloud-controller-manager
+    spec:
+      serviceAccountName: cloud-controller-manager
+      containers:
+        - name: cloud-controller-manager
+          image: ...-huawei-ccm
+          imagePullPolicy: Always
+          command:
+            - /cloud-controller-manager
+          env:
+            - name: IDENTITY_ENDPOINT
+              value: "https://iam.cn-east-3.myhuaweicloud.com/v3"
+            - name: PROJECT_ID
+              value: ...
+            - name: DOMAIN_ID
+              value: ...
+            - name: ACCESS_KEY_ID
+              value: ...
+            - name: ACCESS_KEY_SECRET
+              value: ...
+            - name: ROUTER_ID
+              value: ...
+            - name: REGION
+              value: ...
+            - name: SUBNET_ID
+              value: ...
+      tolerations:
+        - effect: NoSchedule
+          operator: Exists
+          key: node-role.kubernetes.io/master
+        - effect: NoSchedule
+          operator: Exists
+          key: node.cloudprovider.kubernetes.io/uninitialized
+        - key: node-role.kubernetes.io/master
+          effect: NoSchedule
+      nodeSelector:
+        node-role.kubernetes.io/master: ""
+```
+参考文献:
+1. https://mp.weixin.qq.com/s/a_540yJ1EGVroJ9TpvYtPw
+
+作者简介:
+蔡锡生，　杭州朗澈科技有限公司k8s高级工程师

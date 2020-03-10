@@ -1,7 +1,7 @@
 ---
 title: "cloud-controller-manager"
 date: 2020-03-09T10:19:04+08:00
-draft: true
+draft: false
 ---
 
 ### CCM的由来
@@ -506,6 +506,10 @@ CCM注册, 见上文的启动流程中的注册代码
 CCM控制器注册,　见上文的
 
 ### 部署
+#### 部署前必须先在kubelet配置文件中加入如下参数
+--hostname-override=${INSTANCE_ID}
+--provider-id=${INSTANCE_ID}
+
 #### 集群外部署
 ```xshell
 export IDENTITY_ENDPOINT=https://iam.cn-east-3.myhuaweicloud.com/v3

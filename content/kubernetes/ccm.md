@@ -11,8 +11,8 @@ Kubernetes 是一个云原生平台，但为了让 Kubernetes 能够更好地运
 于是在 Kubernetes v1.6，引入了cloud-controller-manager(CCM)项目。
 
 
-### CCM 云服务商需要实现哪些接口
-cloudprovider.Interface（https://github.com/kubernetes/kubernetes/blob/master/pkg/cloudprovider/cloud.go）。
+### 开发CCM 云服务商需要实现哪些接口
+[cloudprovider.Interface](https://github.com/kubernetes/kubernetes/blob/master/staging/src/k8s.io/cloud-provider/cloud.go)
 
 Interface
 ```
@@ -169,6 +169,7 @@ kuberentes 1.17
             if err != nil {
                 return nil, err
             }
+            // 这里可以new　一个自己的CloudProvider对象(前提是实现接口cloudprovider.Interface),
             cloud, err := NewOpenStack(cfg)
             if err != nil {
                 klog.V(1).Infof("New openstack client created failed with config")
@@ -411,22 +412,12 @@ func (lbaas *LbaasV2) EnsureLoadBalancer(ctx context.Context, clusterName string
 	for portIndex, port := range ports {
 	
 	}
-
-	//新建elb，需要绑定EIP，已有elb，获取EIP写入service.LoadBalancerStatus
-	//var floatIP *floatingips.FloatingIP
-	//TODO: 从注解中获取eip规格
-	portID := loadbalancer.VipPortID
-	floatIP, err := getFloatingIPByPortID(lbaas.network, portID)
-	if err != nil && err != ErrNotFound {
-		return nil, fmt.Errorf("error getting floating ip for port %s: %v", portID, err)
-	}
     
     // 创建eip
 	if floatIP == nil && floatingPool != "" && !internalAnnotation {
         ....
 		}
 	status := &v1.LoadBalancerStatus{}
-
 
 	return status, nil
 }

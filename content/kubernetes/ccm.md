@@ -423,7 +423,7 @@ func (lbaas *LbaasV2) EnsureLoadBalancer(ctx context.Context, clusterName string
 }
 
 ```
-### 自动动手写一个CCM插件
+### 自己动手写一个CCM插件
 main.go 服务启动入口程序
 ```go
 func main() {
@@ -497,6 +497,7 @@ CCM注册, 见上文的启动流程中的注册代码
 CCM控制器注册,　见上文的
 
 ### 部署
+以下部署方式适用于基于openstack改造后的华为ccm
 #### 部署前必须先在kubelet配置文件中加入如下参数
 --hostname-override=${INSTANCE_ID}
 --provider-id=${INSTANCE_ID}

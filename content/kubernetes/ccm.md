@@ -593,6 +593,7 @@ spec:
           effect: NoSchedule
       nodeSelector:
         node-role.kubernetes.io/master: ""
+      hostNetwork: true
 ```
 参考文献:
 1. https://mp.weixin.qq.com/s/a_540yJ1EGVroJ9TpvYtPw

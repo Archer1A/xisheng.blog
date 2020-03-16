@@ -22,7 +22,7 @@ on，则go命令使用go mod模式，命令执行过程中将忽略GOPATH的设�
 2.1 set env
 ```
 export GO111MODULE=on
-export GOPROXY=https://goproxy.cn
+export GOPROXY=https://goproxy.io
 ```
 
 2.2 create init file: go.mod
@@ -30,9 +30,24 @@ export GOPROXY=https://goproxy.cn
 go mod init
 ```
 
-2.3 vendor
+2.3 go mod replace
 将 go.mod 中的所有依赖下载到vendor包下
 ```
-go mod vendor
+go mod edit -replace=old[@v]=new[@v]
+```
+>old是要被替换的package，new就是用于替换的package。
+ 
+**这里有几点要注意：**
+ - replace应该在引入新的依赖后立即执行，以免go tools自动更新mod文件时使用了old package导致可能的失败
+ - package后面的version不可省略。（edit所有操作都需要版本tag）
+ - version不能是master或者latest，这两者go get可用，但是go mod edit不可识别，会报错。（不知道是不是bug，虽然文档里表示可以这么用，希望go1.12能做点完善措施）
+
+2.4 go build auto write require package
+```shell script
+go build main.go
 ```
 
+2.5 download package to vendor
+```shell script
+go mod vendor
+```
